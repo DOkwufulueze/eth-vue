@@ -5,7 +5,7 @@ export const NETWORKS = {
   '4': 'Rinkeby test network',
   '42': 'Kovan test network',
   '765': 'DanielNet test network',
-  'approvedBlockchainNetwork': '765'
+  'approvedBlockchainNetwork': '3'
 }
 
 export const MUTATION_TYPES = {
