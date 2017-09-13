@@ -1,8 +1,7 @@
 {
   "name": "eth-vue",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A Vue.js boilerplate for Ethereum dApps, built on Truffle",
-  "author": "Daniel Okwufulueze <daniel.okwufulueze@gmail.com>",
   "private": false,
   "scripts": {
     "dev": "node build/dev-server.js",
