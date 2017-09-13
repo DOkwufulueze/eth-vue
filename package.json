@@ -1,6 +1,6 @@
 {
   "name": "eth-vue",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A Vue.js boilerplate for Ethereum dApps, built on Truffle",
   "author": "Daniel Okwufulueze <daniel.okwufulueze@gmail.com>",
   "private": false,
@@ -93,5 +93,35 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DOkwufulueze/eth-vue.git"
+  },
+  "keywords": [
+    "Ethereum",
+    "Vue",
+    "Solidity",
+    "eth-vue",
+    "Boilerplate",
+    "Contract",
+    "dApp",
+    "Blockchain",
+    "VueJS",
+    "Vue-Router",
+    "Components",
+    "Truffle",
+    "Web3"
+  ],
+  "author": {
+    "name": "Daniel Okwufulueze",
+    "email": "daniel.okwufulueze@gmail.com",
+    "url": "http://www.danielokwufulueze.com"
+  },
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/DOkwufulueze/eth-vue/issues"
+  },
+  "homepage": "https://github.com/DOkwufulueze/eth-vue",
+  "readme": "https://github.com/DOkwufulueze/eth-vue/blob/master/README.md"
 }
