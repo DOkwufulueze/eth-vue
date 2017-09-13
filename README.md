@@ -51,3 +51,4 @@ A Vue.js boilerplate for Ethereum dApps, built on Truffle. Authentication functi
 ![Copyleft](/static/images/copyleft.png) 2017 Daniel Okwufulueze
 <br><br>
 ## Licence
+This dApp is distributed under the [GNU GPL-3.0](https://github.com/DOkwufulueze/eth-vue/blob/master/LICENCE.md) licence.
