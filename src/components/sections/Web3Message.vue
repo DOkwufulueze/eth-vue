@@ -9,8 +9,13 @@
             You are also connected to the {{ approvedNetworkName }} on the blockchain.
             <br>
             <div v-if="user.hasCoinbase">
-              And you have an account on the blockchain.<br>
-              You're all set to use the dApp. Click the LOGIN button above to begin.
+              <span v-if="isLoggedIn">
+                Welcome {{ user.firstName }}
+              </span>
+              <span v-else>
+                And you have an account on the blockchain.<br>
+                You're all set to use the dApp. Click the LOGIN button above to begin.
+              </span>
             </div>
             <div v-else>
               But it seems you don't have an account with us on the blockchain.<br>Or you do but the account is currently inaccessible.<br>Create an account on the blockchain and sign up to begin, or make your existing account accessible.
@@ -41,6 +46,10 @@
     computed: {
       user () {
         return this.$store.state.user
+      },
+      isLoggedIn () {
+        const user = this.$store.state.user
+        return user.hasCoinbase && user.isConnectedToApprovedNetwork && user.isLoggedIn
       }
     }
   }

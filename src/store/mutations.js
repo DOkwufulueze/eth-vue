@@ -1,5 +1,12 @@
 import { MUTATION_TYPES, NETWORKS } from '../util/constants'
 
+function resetUser (state) {
+  state.user.firstName = ''
+  state.user.lastName = ''
+  state.user.email = ''
+  state.user.isLoggedIn = false
+}
+
 export default {
   [MUTATION_TYPES.REGISTER_WEB3_INSTANCE] (state, payload) {
     const result = payload.result
@@ -15,20 +22,21 @@ export default {
     state.user.hasWeb3InjectedBrowser = state.web3.isInjected
     state.user.hasCoinbase = state.web3.coinbase && state.web3.coinbase !== ''
     state.user.isConnectedToApprovedNetwork = state.web3.networkId && state.web3.networkId !== '' && state.web3.networkId === NETWORKS['approvedBlockchainNetwork']
+    const user = state.user
+    if (!(user.hasCoinbase && user.isConnectedToApprovedNetwork)) {
+      resetUser(state)
+    }
   },
   [MUTATION_TYPES.LOGIN] (state, payload) {
     const userData = payload.userData
     state.user.firstName = userData.firstName
     state.user.lastName = userData.lastName
     state.user.email = userData.email
-    state.user.isLoggedIn = !!(userData.email && userData.email !== '')
+    state.user.isLoggedIn = !!(userData.email && userData.email !== '') && state.user.hasCoinbase && state.user.isConnectedToApprovedNetwork
     if (payload.callback) payload.callback(userData)
   },
   [MUTATION_TYPES.LOGOUT] (state, payload) {
-    state.user.firstName = ''
-    state.user.lastName = ''
-    state.user.email = ''
-    state.user.isLoggedIn = false
+    resetUser(state)
     if (payload.callback) payload.callback()
   },
   [MUTATION_TYPES.CHANGE_CURRENT_ROUTE_TO] (state, newRoute) {

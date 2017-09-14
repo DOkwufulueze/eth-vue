@@ -1,5 +1,6 @@
 import contract from 'truffle-contract'
 import AuthContract from '../../build/contracts/Authentication.json'
+import { NETWORKS } from '../util/constants'
 
 let auth = null
 class Auth {
@@ -20,7 +21,7 @@ class Auth {
               resolve(data)
             })
             .catch((e) => {
-              console.error(e)
+              reject(e)
             })
           })
         }
@@ -43,13 +44,16 @@ class Auth {
               resolve(data)
             })
             .catch((e) => {
-              console.error(e)
+              reject(e)
             })
           })
         }
       })
       .then((result) => {
         resolve(result)
+      })
+      .catch((err) => {
+        reject(err)
       })
     })
   }
@@ -66,13 +70,16 @@ class Auth {
               resolve(this.getUTF8DataOfResults(state, result))
             })
             .catch((e) => {
-              console.error(e)
+              reject(e)
             })
           })
         }
       })
       .then((result) => {
         resolve(result)
+      })
+      .catch((err) => {
+        reject(err)
       })
     })
   }
@@ -81,24 +88,34 @@ class Auth {
     const state = dataObject.state
     return new Promise(function (resolve, reject) {
       if (!state || !state.web3 || !(state.web3.instance)) {
-        console.log('Web3 is not initialised. Use a Web3 injector')
+        reject('Web3 is not initialised. Use a Web3 injector')
       } else {
-        let authContract = contract(AuthContract)
-        authContract.setProvider(state.web3.instance().currentProvider)
-        state.web3.instance().eth.getCoinbase((err, coinbase) => {
-          if (err) {
-            console.err(':::Unable to get coinbase for this operation')
-            reject(err)
-          } else {
-            authContract.deployed()
-            .then((contractInstance) => {
-              dataObject.method(contractInstance, coinbase)
-              .then((result) => {
-                resolve(result)
+        if (state.web3.networkId === NETWORKS.approvedBlockchainNetwork) {
+          let authContract = contract(AuthContract)
+          authContract.setProvider(state.web3.instance().currentProvider)
+          state.web3.instance().eth.getCoinbase((err, coinbase) => {
+            if (err) {
+              console.error(':::Unable to get coinbase for this operation')
+              reject(err)
+            } else {
+              authContract.deployed()
+              .then((contractInstance) => {
+                dataObject.method(contractInstance, coinbase)
+                .then((result) => {
+                  resolve(result)
+                })
+                .catch((err) => {
+                  reject(err)
+                })
               })
-            })
-          }
-        })
+              .catch((err) => {
+                reject(err)
+              })
+            }
+          })
+        } else {
+          reject(`You are NOT connected to the ${NETWORKS[NETWORKS.approvedBlockchainNetwork]} on which this dApp runs.`)
+        }
       }
     })
   }

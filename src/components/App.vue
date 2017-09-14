@@ -31,6 +31,9 @@ export default {
         default:
           return Web3Message
       }
+    },
+    isLoggedIn () {
+      return this.$store.state.user.isLoggedIn
     }
   },
   components: {
@@ -68,6 +71,9 @@ export default {
     },
     $route: function (newRoute) {
       this[ACTION_TYPES.CHANGE_CURRENT_ROUTE_TO](newRoute)
+    },
+    isLoggedIn: function (newValue) {
+      if (!newValue) this.$router.push('/')
     }
   }
 }

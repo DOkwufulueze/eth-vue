@@ -22,7 +22,8 @@
         return this.$store.state.user
       },
       isLoggedIn () {
-        return this.$store.state.user.isLoggedIn
+        const user = this.$store.state.user
+        return user.hasCoinbase && user.isConnectedToApprovedNetwork && user.isLoggedIn
       }
     },
     methods: {
@@ -44,7 +45,17 @@
                 this.$router.push('/dashboard')
               }
             })
+            .catch((err) => {
+              evt.target.disabled = false
+              console.error(err)
+            })
           })
+          .catch((err) => {
+            evt.target.disabled = false
+            console.error(err)
+          })
+        } else {
+          evt.target.disabled = false
         }
       },
       logUserOut (evt) {

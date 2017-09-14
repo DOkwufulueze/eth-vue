@@ -61,6 +61,14 @@
               this.$router.push('/dashboard')
             }
           })
+          .catch((err) => {
+            evt.target.disabled = false
+            console.error(err)
+          })
+        })
+        .catch((err) => {
+          evt.target.disabled = false
+          console.error(err)
         })
       }
     }
