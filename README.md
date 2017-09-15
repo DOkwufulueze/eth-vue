@@ -17,6 +17,35 @@ A Vue.js boilerplate for Ethereum dApps, built on Truffle. Authentication functi
         cd eth-vue
 <br>
 
+- Configure your environment
+  - Open the `truffle.js` file. You'll find the following:
+
+        module.exports = {
+          networks: {
+            development: {
+              host: "localhost",
+              port: 8545,
+              network_id: "*", // Match any network id
+              from: "" // Add your unlocked account within the double quotes
+            }
+          }
+        };
+    Insert your unlocked account within the double-quotes of the `from` key
+    
+  - Open the `src/util/constants.js` file. You'll find the following:
+
+        export const NETWORKS = {
+          '1': 'Main Net',
+          '2': 'Deprecated Morden test network',
+          '3': 'Ropsten test network',
+          '4': 'Rinkeby test network',
+          '42': 'Kovan test network',
+          'approvedBlockchainNetwork': '3'
+        }
+    The default network is the Ropsten test network, but you can change this.<br>
+    If your choice network is on the list of `NETWORKS` but is not Ropsten, then change the value of `approvedBlockchainNetwork` to the ID of your choice network. But if your choice network is not on the `NETWORKS` list, then add your network using the existing pattern [`<networkId>: <networkName>`], and change the value of `approvedBlockchainNetwork` to the ID of your choice network.
+<br>
+
 - Install npm dependencies
 
         npm install
