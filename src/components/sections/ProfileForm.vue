@@ -3,17 +3,17 @@
     <h3>{{ this.$route.path === '/sign-up' ? 'Sign Up' : 'Edit Profile' }}</h3>
     <div class="row">
       <label for="first-name">First name</label>
-      <input type="text" id="first-name" name="first-name" v-model="firstName">
+      <input type="text" id="first-name" name="first-name" v-model="user.firstName">
     </div>
 
     <div class="row">
       <label for="last-name">Last name</label>
-      <input type="text" id="Last-name" name="Last-name" v-model="lastName">
+      <input type="text" id="Last-name" name="Last-name" v-model="user.lastName">
     </div>
 
     <div class="row">
       <label for="email">Email</label>
-      <input type="text" id="email" name="email" v-model="email">
+      <input type="text" id="email" name="email" v-model="user.email">
     </div>
 
     <div class="row">
@@ -24,18 +24,6 @@
 
 <script type="text/javascript">
   export default {
-    data: function () {
-      return {
-        firstName: this.$store.state.user.firstName,
-        lastName: this.$store.state.user.lastName,
-        email: this.$store.state.user.email
-      }
-    },
-    computed: {
-      user () {
-        return this.$store.state.user
-      }
-    },
     methods: {
       ...mapActions([
         ACTION_TYPES.LOGIN
@@ -44,9 +32,9 @@
         evt.target.disabled = true
         const action = this.$route.path === '/sign-up' ? 'signup' : 'editProfile'
         const userProfileData = {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email
+          firstName: this.user.firstName,
+          lastName: this.user.lastName,
+          email: this.user.email
         }
 
         Auth[action](this.$store.state, userProfileData)
@@ -55,7 +43,7 @@
           .then((userData) => {
             evt.target.disabled = false
             console.log(action === 'signup' ? 'Signed up and logged In' : 'Successfully updated profile')
-            if (this.$store.state.user.email === '' || !this.$store.state.user.isLoggedIn) {
+            if (this.user.email === '' || !this.user.isLoggedIn) {
               this.$router.push('/')
             } else {
               this.$router.push('/dashboard')
@@ -71,7 +59,8 @@
           console.error(err)
         })
       }
-    }
+    },
+    props: [ 'user' ]
   }
 
   import { mapActions } from 'vuex'

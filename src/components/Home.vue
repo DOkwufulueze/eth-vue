@@ -1,7 +1,10 @@
 <template>
   <div id="home">
-    <HeaderTemplate />
-    <BodyTemplate :current-view="currentView"/>
+    <HeaderTemplate :user="user" />
+    <BodyTemplate
+      :current-view="currentView"
+      :user="user"
+    />
     <FooterTemplate />
   </div>
 </template>
@@ -9,16 +12,11 @@
 <script>
   export default {
     name: 'home',
-    props: [ 'currentView' ],
+    props: [ 'currentView', 'user' ],
     components: {
       HeaderTemplate,
       BodyTemplate,
       FooterTemplate
-    },
-    computed: {
-      user () {
-        return this.$store.state.user
-      }
     }
   }
 

@@ -13,14 +13,7 @@
 <script>
   export default {
     name: 'profile',
-    computed: {
-      user () {
-        return this.$store.state.user
-      },
-      isLoggedIn () {
-        return this.$store.state.user.isLoggedIn
-      }
-    }
+    props: [ 'user' ]
   }
 </script>
 

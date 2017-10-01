@@ -1,7 +1,10 @@
 <template v-if="isLoggedIn">
   <div id="dashboard">
-    <HeaderTemplate />
-    <BodyTemplate :current-view="currentView" />
+    <HeaderTemplate :user="user" />
+    <BodyTemplate
+      :current-view="currentView"
+      :user="user"
+    />
     <FooterTemplate />
   </div>
 </template>
@@ -9,22 +12,14 @@
 <script>
   export default {
     name: 'dashboard',
-    props: [ 'currentView' ],
+    props: [ 'currentView', 'user' ],
     components: {
       HeaderTemplate,
       BodyTemplate,
       FooterTemplate
     },
     created: function () {
-      if (this.$store.state.user.email === '' || !this.$store.state.user.isLoggedIn) this.$router.push('/')
-    },
-    computed: {
-      user () {
-        return this.$store.state.user
-      },
-      isLoggedIn () {
-        return this.$store.state.user.isLoggedIn
-      }
+      if (this.user.email === '' || !this.user.isLoggedIn) this.$router.push('/')
     },
     methods: {
       ...mapActions([

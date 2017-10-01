@@ -1,6 +1,6 @@
 import contract from 'truffle-contract'
 import AuthContract from '../../build/contracts/Authentication.json'
-import { NETWORKS } from '../util/constants'
+import { APPROVED_NETWORK_ID, NETWORKS } from '../util/constants'
 
 let auth = null
 class Auth {
@@ -90,7 +90,7 @@ class Auth {
       if (!state || !state.web3 || !(state.web3.instance)) {
         reject('Web3 is not initialised. Use a Web3 injector')
       } else {
-        if (state.web3.networkId === NETWORKS.approvedBlockchainNetwork) {
+        if (state.web3.networkId === APPROVED_NETWORK_ID) {
           let authContract = contract(AuthContract)
           authContract.setProvider(state.web3.instance().currentProvider)
           state.web3.instance().eth.getCoinbase((err, coinbase) => {
@@ -114,7 +114,7 @@ class Auth {
             }
           })
         } else {
-          reject(`You are NOT connected to the ${NETWORKS[NETWORKS.approvedBlockchainNetwork]} on which this dApp runs.`)
+          reject(`You are NOT connected to the ${NETWORKS[APPROVED_NETWORK_ID]} on which this dApp runs.`)
         }
       }
     })

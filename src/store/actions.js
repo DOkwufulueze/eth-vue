@@ -1,5 +1,6 @@
 import { ACTION_TYPES, MUTATION_TYPES } from '../util/constants'
 import getWeb3 from '../util/web3/getWeb3'
+import monitorWeb3 from '../util/web3/monitorWeb3'
 
 export default {
   [ACTION_TYPES.REGISTER_WEB3_INSTANCE] ({ commit, dispatch }) {
@@ -9,7 +10,10 @@ export default {
       .then((result) => {
         commit(MUTATION_TYPES.REGISTER_WEB3_INSTANCE, {
           result,
-          callback: () => resolve()
+          callback: (state) => {
+            monitorWeb3(state)
+            resolve()
+          }
         })
       })
       .catch((e) => {
@@ -21,7 +25,10 @@ export default {
               hasInjectedWeb3: (result.hasInjectedWeb3 ? result.hasInjectedWeb3 : false),
               web3Error: e.err
             },
-            callback: () => reject(result)
+            callback: (state) => {
+              monitorWeb3(state)
+              resolve(result)
+            }
           })
         }
       })

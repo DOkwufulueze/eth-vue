@@ -25,13 +25,13 @@ A Vue.js boilerplate for Ethereum dApps, built on Truffle. Authentication functi
             development: {
               host: "localhost",
               port: 8545,
-              network_id: "*", // Match any network id
+              network_id: "*", // Match any network id. You may need to replace * with your network Id
               from: "" // Add your unlocked account within the double quotes
             }
           }
         };
     Insert your unlocked account within the double-quotes of the `from` key
-    
+
   - Open the `src/util/constants.js` file. You'll find the following:
 
         export const NETWORKS = {
@@ -39,11 +39,13 @@ A Vue.js boilerplate for Ethereum dApps, built on Truffle. Authentication functi
           '2': 'Deprecated Morden test network',
           '3': 'Ropsten test network',
           '4': 'Rinkeby test network',
-          '42': 'Kovan test network',
-          'approvedBlockchainNetwork': '3'
+          '42': 'Kovan test network'
         }
-    The default network is the Ropsten test network, but you can change this.<br>
-    If your choice network is on the list of `NETWORKS` but is not Ropsten, then change the value of `approvedBlockchainNetwork` to the ID of your choice network. But if your choice network is not on the `NETWORKS` list, then add your network using the existing pattern [`<networkId>: <networkName>`], and change the value of `approvedBlockchainNetwork` to the ID of your choice network.
+
+        export const APPROVED_NETWORK_ID = '3'
+
+    The default network above is the Ropsten test network [`APPROVED_NETWORK_ID = '3'`], but you can change this.<br>
+    If your choice network is on the list of `NETWORKS` but is not Ropsten, then change the value of `APPROVED_NETWORK_ID` to the ID of your choice network. But if your choice network is not on the `NETWORKS` list, then add your network using the existing pattern [`<networkId>: <networkName>`], and change the value of `APPROVED_NETWORK_ID` to the ID of your choice network.
 <br>
 
 - Install npm dependencies

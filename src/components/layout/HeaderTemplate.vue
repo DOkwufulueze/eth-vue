@@ -3,10 +3,10 @@
     <div class="content">
       <router-link to="/" class="logo">INSERT YOUR LOGO HERE</router-link>
       <div class="links">
-        <router-link to="/sign-up" class="link1" v-if="!isLoggedIn">Sign Up</router-link> <span v-if="!isLoggedIn" class="divider"></span>
-        <input type="button" class="link1" v-if="!isLoggedIn" value="Login" @click="logUserIn"> <span v-if="!isLoggedIn" class="divider"></span>
-        <router-link to="/profile/edit" class="link2" v-if="isLoggedIn">Edit Profile</router-link> <span v-if="isLoggedIn" class="divider"></span>
-        <input type="button" class="link2" v-if="isLoggedIn" value="Logout" @click="logUserOut"> <span v-if="isLoggedIn" class="divider"></span>
+        <router-link to="/sign-up" class="link1" v-if="!user.isLoggedIn">Sign Up</router-link> <span v-if="!user.isLoggedIn" class="divider"></span>
+        <input type="button" class="link1" v-if="!user.isLoggedIn" value="Login" @click="logUserIn"> <span v-if="!user.isLoggedIn" class="divider"></span>
+        <router-link to="/profile/edit" class="link2" v-if="user.isLoggedIn">Edit Profile</router-link> <span v-if="user.isLoggedIn" class="divider"></span>
+        <input type="button" class="link2" v-if="user.isLoggedIn" value="Logout" @click="logUserOut"> <span v-if="user.isLoggedIn" class="divider"></span>
         <a href="https://github.com/DOkwufulueze/eth-vue" target="_blank" class="link3">Github</a> <span class="divider"></span>
         <a href="http://danielokwufulueze.com" target="_blank" class="link4">www</a>
       </div>
@@ -17,15 +17,6 @@
 <script type="text/javascript">
   export default {
     name: 'header-template',
-    computed: {
-      user () {
-        return this.$store.state.user
-      },
-      isLoggedIn () {
-        const user = this.$store.state.user
-        return user.hasCoinbase && user.isConnectedToApprovedNetwork && user.isLoggedIn
-      }
-    },
     methods: {
       ...mapActions([
         ACTION_TYPES.LOGIN,
@@ -33,13 +24,13 @@
       ]),
       logUserIn (evt) {
         evt.target.disabled = true
-        if (!this.$store.state.user.isLoggedIn) {
+        if (!this.user.isLoggedIn) {
           Auth.login(this.$store.state)
           .then((userData) => {
             this[ACTION_TYPES.LOGIN](userData)
             .then((userData) => {
               evt.target.disabled = false
-              if (!this.$store.state.user.isLoggedIn) {
+              if (!this.user.isLoggedIn) {
                 this.$router.push('/')
               } else {
                 this.$router.push('/dashboard')
@@ -66,7 +57,8 @@
           this.$router.push('/')
         })
       }
-    }
+    },
+    props: [ 'user' ]
   }
 
   import { mapActions } from 'vuex'
@@ -104,7 +96,7 @@
     text-decoration: none;
     color: #4d4c49;
   }
-  
+
   .links {
     float: right;
     height: 60px;

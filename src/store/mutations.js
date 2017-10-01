@@ -1,38 +1,64 @@
-import { MUTATION_TYPES, NETWORKS } from '../util/constants'
+import { MUTATION_TYPES, APPROVED_NETWORK_ID } from '../util/constants'
 
-function resetUser (state) {
-  state.user.firstName = ''
-  state.user.lastName = ''
-  state.user.email = ''
-  state.user.isLoggedIn = false
+function resetUser (state, web3Status) {
+  const user = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    isLoggedIn: false
+  }
+
+  Object.assign(user, web3Status)
+  state.user = user
 }
 
 export default {
   [MUTATION_TYPES.REGISTER_WEB3_INSTANCE] (state, payload) {
     const result = payload.result
-    state.web3.instance = () => result.web3
-    state.web3.address = result.address
-    state.web3.coinbase = result.coinbase
-    state.web3.networkId = result.networkId
-    state.web3.error = result.web3Error
-    state.web3.isInjected = result.hasInjectedWeb3
-    if (payload.callback) payload.callback(result)
+
+    const web3Copy = state.web3
+    web3Copy.instance = () => result.web3
+    web3Copy.address = result.address
+    web3Copy.coinbase = result.coinbase
+    web3Copy.networkId = result.networkId
+    web3Copy.error = result.web3Error
+    web3Copy.isInjected = result.hasInjectedWeb3
+
+    state.web3 = web3Copy
+
+    if (payload.callback) payload.callback(state)
   },
   [MUTATION_TYPES.UPDATE_USER_BLOCKCHAIN_STATUS] (state) {
-    state.user.hasWeb3InjectedBrowser = state.web3.isInjected
-    state.user.hasCoinbase = state.web3.coinbase && state.web3.coinbase !== ''
-    state.user.isConnectedToApprovedNetwork = state.web3.networkId && state.web3.networkId !== '' && state.web3.networkId === NETWORKS['approvedBlockchainNetwork']
-    const user = state.user
-    if (!(user.hasCoinbase && user.isConnectedToApprovedNetwork)) {
-      resetUser(state)
+    const hasWeb3InjectedBrowser = state.web3.isInjected
+    const hasCoinbase = !!(state.web3.coinbase && state.web3.coinbase !== '')
+    const isConnectedToApprovedNetwork = !!(state.web3.networkId && state.web3.networkId !== '' && state.web3.networkId === APPROVED_NETWORK_ID)
+    const web3Status = {
+      hasWeb3InjectedBrowser,
+      hasCoinbase,
+      isConnectedToApprovedNetwork
+    }
+
+    if (hasWeb3InjectedBrowser && hasCoinbase && isConnectedToApprovedNetwork) {
+      const userCopy = state.user
+      Object.assign(userCopy, web3Status)
+      state.user = userCopy
+    } else {
+      resetUser(state, web3Status)
     }
   },
   [MUTATION_TYPES.LOGIN] (state, payload) {
     const userData = payload.userData
-    state.user.firstName = userData.firstName
-    state.user.lastName = userData.lastName
-    state.user.email = userData.email
-    state.user.isLoggedIn = !!(userData.email && userData.email !== '') && state.user.hasCoinbase && state.user.isConnectedToApprovedNetwork
+    const userCopy = state.user
+
+    Object.assign(userCopy, {
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      email: userData.email,
+      isLoggedIn: !!(userData.email && userData.email !== '') && state.user.hasCoinbase && state.user.isConnectedToApprovedNetwork
+    })
+
+    state.user = userCopy
+
     if (payload.callback) payload.callback(userData)
   },
   [MUTATION_TYPES.LOGOUT] (state, payload) {

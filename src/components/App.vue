@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <router-view :current-view="currentView"></router-view>
+    <router-view
+      :current-view="currentView"
+      :user="user">
+      </router-view>
   </div>
 </template>
 

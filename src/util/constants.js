@@ -3,9 +3,10 @@ export const NETWORKS = {
   '2': 'Deprecated Morden test network',
   '3': 'Ropsten test network',
   '4': 'Rinkeby test network',
-  '42': 'Kovan test network',
-  'approvedBlockchainNetwork': '3'
+  '42': 'Kovan test network'
 }
+
+export const APPROVED_NETWORK_ID = '3'
 
 export const MUTATION_TYPES = {
   CHANGE_CURRENT_ROUTE_TO: 'changeCurrentRouteTo',

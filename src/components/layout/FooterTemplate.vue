@@ -20,12 +20,7 @@
 
 <script type="text/javascript">
   export default {
-    name: 'footer-template',
-    computed: {
-      user () {
-        return this.$store.state.user
-      }
-    }
+    name: 'footer-template'
   }
 </script>
 

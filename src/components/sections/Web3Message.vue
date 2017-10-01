@@ -9,7 +9,7 @@
             You are also connected to the {{ approvedNetworkName }} on the blockchain.
             <br>
             <div v-if="user.hasCoinbase">
-              <span v-if="isLoggedIn">
+              <span v-if="user.isLoggedIn">
                 Welcome {{ user.firstName }}
               </span>
               <span v-else>
@@ -40,21 +40,13 @@
     name: 'web3-message',
     data: () => {
       return {
-        approvedNetworkName: NETWORKS[NETWORKS['approvedBlockchainNetwork']]
+        approvedNetworkName: NETWORKS[APPROVED_NETWORK_ID]
       }
     },
-    computed: {
-      user () {
-        return this.$store.state.user
-      },
-      isLoggedIn () {
-        const user = this.$store.state.user
-        return user.hasCoinbase && user.isConnectedToApprovedNetwork && user.isLoggedIn
-      }
-    }
+    props: [ 'user' ]
   }
 
-  import { NETWORKS } from '../../util/constants'
+  import { APPROVED_NETWORK_ID, NETWORKS } from '../../util/constants'
 </script>
 
 <style scoped>
