@@ -9,6 +9,7 @@ export default {
     networkId: null
   },
   user: {
+    coinbase: '',
     email: '',
     firstName: '',
     lastName: '',

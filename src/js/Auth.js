@@ -15,7 +15,7 @@ class Auth {
         state,
         method: (contractInstance, coinbase) => {
           return new Promise((resolve, reject) => {
-            contractInstance.update(data.firstName, data.lastName, data.email, { from: coinbase })
+            contractInstance.update(data.firstName, data.lastName, data.email, { from: coinbase, gas: 4444444 })
             .then((result) => {
               // Successful Sign-up
               resolve(data)
@@ -38,7 +38,7 @@ class Auth {
         state,
         method: (contractInstance, coinbase) => {
           return new Promise((resolve, reject) => {
-            contractInstance.signup(data.firstName, data.lastName, data.email, { from: coinbase })
+            contractInstance.signup(data.firstName, data.lastName, data.email, { from: coinbase, gas: 4444444 })
             .then((result) => {
               // Successful Sign-up
               resolve(data)
@@ -64,7 +64,7 @@ class Auth {
         state,
         method: (contractInstance, coinbase) => {
           return new Promise((resolve, reject) => {
-            contractInstance.login({ from: coinbase })
+            contractInstance.login({from: coinbase})
             .then((result) => {
               // Successful Fetch
               resolve(this.getUTF8DataOfResults(state, result))

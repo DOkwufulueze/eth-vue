@@ -1,6 +1,6 @@
 import { MUTATION_TYPES, APPROVED_NETWORK_ID } from '../util/constants'
 
-function resetUser (state, web3Status) {
+function resetUser (state, web3Status = {}) {
   const user = {
     firstName: '',
     lastName: '',
@@ -8,8 +8,9 @@ function resetUser (state, web3Status) {
     isLoggedIn: false
   }
 
-  Object.assign(user, web3Status)
-  state.user = user
+  const userCopy = state.user
+  Object.assign(userCopy, user, web3Status)
+  state.user = userCopy
 }
 
 export default {
@@ -33,6 +34,7 @@ export default {
     const hasCoinbase = !!(state.web3.coinbase && state.web3.coinbase !== '')
     const isConnectedToApprovedNetwork = !!(state.web3.networkId && state.web3.networkId !== '' && state.web3.networkId === APPROVED_NETWORK_ID)
     const web3Status = {
+      coinbase: state.web3.coinbase,
       hasWeb3InjectedBrowser,
       hasCoinbase,
       isConnectedToApprovedNetwork
@@ -44,6 +46,12 @@ export default {
       state.user = userCopy
     } else {
       resetUser(state, web3Status)
+    }
+  },
+  [MUTATION_TYPES.UPDATE_WEB3_PROPERTIES] (state, payload) {
+    for (var i = payload.properties.length - 1; i >= 0; i--) {
+      state.web3[payload.properties[i]] = payload.values[i]
+      if (state.user[payload.properties[i]]) state.user[payload.properties[i]] = payload.values[i]
     }
   },
   [MUTATION_TYPES.LOGIN] (state, payload) {

@@ -1,43 +1,61 @@
 import Web3 from 'web3'
+import store from '../../store/'
+import { ACTION_TYPES, APPROVED_NETWORK_ID } from '../../util/constants.js'
 
 const monitorWeb3 = function (state) {
-  const networkId = state.web3.networkId
-  const coinbase = state.web3.coinbase
+  let networkId = state && state.web3 ? state.web3.networkId : ''
+  let coinbase = state && state.web3 ? state.web3.coinbase : ''
   let web3 = window.web3
+  let isLocalWeb3 = false
 
   // Checking if browser is Web3-injected (Mist/MetaMask)
-  if (typeof web3 !== 'undefined') {
+  if (typeof web3 !== 'undefined' && web3) {
     // Use Mist/MetaMask's provider
     web3 = new Web3(web3.currentProvider)
   } else {
-    console.log('No web3 in browser')
+    console.log('monitorWeb3: No web3 in browser')
     web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
+    isLocalWeb3 = true
   }
 
-  web3.eth.filter('latest', function (error, result) {
-    if (!error) {
-      console.log(result)
-    }
-  })
-
-  web3.eth.filter('pending', function (error, result) {
-    if (!error) {
-      console.log(result)
-    }
-  })
-
-  setInterval(() => {
-    web3.version.getNetwork((err, newNetworkId) => {
-      if (!err && networkId && networkId !== '' && newNetworkId && newNetworkId !== '' && newNetworkId !== networkId) {
-        window.location.reload()
-      } else {
-        web3.eth.getCoinbase((err, newCoinbase) => {
-          if (!err && coinbase && coinbase !== '' && newCoinbase && newCoinbase !== '' && newCoinbase !== coinbase) {
-            window.location.reload()
-          }
-        })
+  if (web3) {
+    web3.eth.filter('latest', function (error, result) {
+      if (!error) {
+        // console.log(result)
       }
     })
+
+    web3.eth.filter('pending', function (error, result) {
+      if (!error) {
+        // console.log(result)
+      }
+    })
+  }
+
+  setInterval(() => {
+    if (web3 && !isLocalWeb3) {
+      web3.version.getNetwork((err, newNetworkId) => {
+        newNetworkId = !err && newNetworkId ? newNetworkId.toString() : ''
+        if ((!err && newNetworkId && newNetworkId !== '' && newNetworkId !== networkId) || (!newNetworkId && networkId)) {
+          store.dispatch(ACTION_TYPES.LOGOUT)
+          window.location.reload()
+        } else {
+          web3.eth.getCoinbase((err, newCoinbase) => {
+            newCoinbase = !err && newCoinbase ? newCoinbase.toString() : ''
+            if ((!err && newCoinbase && newCoinbase !== '' && newCoinbase !== coinbase && newNetworkId === APPROVED_NETWORK_ID) || (!newCoinbase && coinbase)) {
+              store.dispatch(ACTION_TYPES.LOGOUT)
+              window.location.reload()
+            } else if (!err && newCoinbase && newCoinbase !== '' && newCoinbase !== coinbase) {
+              coinbase = newCoinbase
+              store.dispatch(ACTION_TYPES.UPDATE_WEB3_PROPERTIES, {
+                properties: ['coinbase'],
+                values: [ newCoinbase ]
+              })
+            }
+          })
+        }
+      })
+    }
   }, 666)
 }
 

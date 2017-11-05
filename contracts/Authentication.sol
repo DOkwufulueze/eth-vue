@@ -1,4 +1,4 @@
-pragma solidity ^0.4.11;
+pragma solidity 0.4.18;
 
 import './zeppelin/lifecycle/Destructible.sol';
 
@@ -44,18 +44,23 @@ contract Authentication is Destructible {
     _;
   }
 
-  function login() constant
-  onlyExistingUser
-  returns (bytes32, bytes32, bytes32) {
+  function login()
+    external
+    view
+    onlyExistingUser
+    returns (bytes32, bytes32, bytes32)
+  {
     return (users[msg.sender].firstName, users[msg.sender].lastName, users[msg.sender].email);
   }
 
   function signup(bytes32 firstName, bytes32 lastName, bytes32 email)
-  payable
-  onlyValidFirstName(firstName)
-  onlyValidLastName(lastName)
-  onlyValidEmail(email)
-  returns (bytes32, bytes32, bytes32) {
+    external
+    payable
+    onlyValidFirstName(firstName)
+    onlyValidLastName(lastName)
+    onlyValidEmail(email)
+    returns (bytes32, bytes32, bytes32)
+  {
     // Check if user exists.
     // If yes, return user.
     // If no, check if user details were sent.
@@ -69,12 +74,14 @@ contract Authentication is Destructible {
   }
 
   function update(bytes32 firstName, bytes32 lastName, bytes32 email)
-  payable
-  onlyValidFirstName(firstName)
-  onlyValidLastName(lastName)
-  onlyValidEmail(email)
-  onlyExistingUser
-  returns (bytes32, bytes32, bytes32) {
+    external
+    payable
+    onlyValidFirstName(firstName)
+    onlyValidLastName(lastName)
+    onlyValidEmail(email)
+    onlyExistingUser
+    returns (bytes32, bytes32, bytes32)
+  {
     // Update user.
 
     if (users[msg.sender].firstName != 0x0) users[msg.sender].firstName = firstName;

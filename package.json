@@ -1,6 +1,6 @@
 {
   "name": "eth-vue",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "A Vue.js boilerplate for Ethereum dApps, built on Truffle",
   "private": false,
   "scripts": {
@@ -73,7 +73,7 @@
     "shelljs": "^0.7.8",
     "sinon": "^2.4.1",
     "sinon-chai": "^2.13.0",
-    "truffle-contract": "^1.1.11",
+    "truffle-contract": "^3.0.0",
     "url-loader": "^0.5.9",
     "vue-loader": "^13.0.4",
     "vue-style-loader": "^3.0.1",

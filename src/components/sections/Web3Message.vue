@@ -13,8 +13,8 @@
                 Welcome {{ user.firstName }}
               </span>
               <span v-else>
-                And you have an account on the blockchain.<br>
-                You're all set to use the dApp. Click the LOGIN button above to begin.
+                And we can see your ethereum address [{{ coinbase }}].<br>
+                You're all set to use the dApp. If you're not signed up, click the "Sign Up" link above to begin, or click the LOGIN button above to login.
               </span>
             </div>
             <div v-else>
@@ -22,13 +22,13 @@
             </div>
           </div>
           <div v-else>
-            But you are not connected to the network on the blockchain [{{ approvedNetworkName }}].<br>
+            But you are not connected to our network on the blockchain [{{ approvedNetworkName }}].<br>
             Connect to the {{ approvedNetworkName }}.
           </div>
         </div>
         <div v-else>
           Your browser is not Web3-injected. To use the dApp, you can install <a href='https://metamask.io/'>Metamask</a>.
-          <div class="metamask-resource"></div>
+          <div class="metamask-resource" @click="goToMetamask"></div>
         </div>
       </div>
     </div>
@@ -38,9 +38,19 @@
 <script>
   export default {
     name: 'web3-message',
+    computed: {
+      coinbase () {
+        return this.user.coinbase
+      }
+    },
     data: () => {
       return {
         approvedNetworkName: NETWORKS[APPROVED_NETWORK_ID]
+      }
+    },
+    methods: {
+      goToMetamask () {
+        window.location.href = 'https://metamask.io/'
       }
     },
     props: [ 'user' ]
@@ -79,9 +89,10 @@
   }
 
   .metamask-resource {
-    background: url('/.static/images/metamask.png') no-repeat;
+    background: url('/static/images/metamask.png') no-repeat;
     background-size: contain;
-    height: auto;
-    width: 20px;
+    height: 200px;
+    width: auto;
+    cursor: pointer;
   }
 </style>

@@ -34,6 +34,9 @@ export default {
       })
     })
   },
+  [ACTION_TYPES.UPDATE_WEB3_PROPERTIES] ({ commit }, payload) {
+    commit(MUTATION_TYPES.UPDATE_WEB3_PROPERTIES, payload)
+  },
   [ACTION_TYPES.UPDATE_USER_BLOCKCHAIN_STATUS] ({ commit }) {
     commit(MUTATION_TYPES.UPDATE_USER_BLOCKCHAIN_STATUS)
   },
