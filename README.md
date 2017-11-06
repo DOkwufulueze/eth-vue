@@ -12,7 +12,7 @@ Simply clone and start building your own dApp.
 
 - Enter your development directory and unbox `DOkwufulueze/eth-vue`
 
-        `truffle unbox DOkwufulueze/eth-vue`
+        truffle unbox DOkwufulueze/eth-vue
 <br>
 
 - Configure your environment
