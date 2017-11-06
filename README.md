@@ -10,14 +10,9 @@ Simply clone and start building your own dApp.
         npm install -g truffle
 <br>
 
-- Clone this repo
+- Enter your development directory and unbox `DOkwufulueze/eth-vue`
 
-        git clone git@github.com:DOkwufulueze/eth-vue.git
-<br>
-
-- Enter the boilerplate
-
-        cd eth-vue
+        `truffle unbox DOkwufulueze/eth-vue`
 <br>
 
 - Configure your environment
@@ -44,7 +39,7 @@ Simply clone and start building your own dApp.
           '3': 'Ropsten test network',
           '4': 'Rinkeby test network',
           '42': 'Kovan test network',
-          '666': 'Private Test Network'
+          '4447': 'Truffle Develop Network'
         }
 
         export const APPROVED_NETWORK_ID = '3'
