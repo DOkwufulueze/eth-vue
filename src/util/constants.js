@@ -4,7 +4,7 @@ export const NETWORKS = {
   '3': 'Ropsten test network',
   '4': 'Rinkeby test network',
   '42': 'Kovan test network',
-  '666': 'Private Test Network'
+  '4447': 'Truffle Develop Network'
 }
 
 export const APPROVED_NETWORK_ID = '3'
