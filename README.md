@@ -1,8 +1,8 @@
-# eth-vue
-A [vue](https://github.com/vuejs/vue) boilerplate for Ethereum dApps, built on [Truffle 4](https://github.com/trufflesuite/truffle/releases). Uses [vuex](https://github.com/vuejs/vuex) for state management, [vuex-persist](https://github.com/championswimmer/vuex-persist) for local storage of app state, and [vue-router](https://github.com/vuejs/vue-router) for routing.
+# eth-vue Truffle Box
+This Truffle Box provides everything you need to quickly build Ethereum dApps that have authentication features with [vue](https://github.com/vuejs/vue). Built on [Truffle 4](https://github.com/trufflesuite/truffle/releases), it uses [vuex](https://github.com/vuejs/vuex) for state management, [vuex-persist](https://github.com/championswimmer/vuex-persist) for local storage of app state, and [vue-router](https://github.com/vuejs/vue-router) for routing.
 Authentication functionalities are handled by Smart Contracts running on the Ethereum blockchain.
 
-Simply clone and start building your own dApp.
+Simply unbox and start building your own dApp.
 
 ## Installation
 - Install Truffle
@@ -71,6 +71,7 @@ To deploy the contracts, you can either compile and migrate to your custom netwo
 ### Compile and Migrate using the `truffle develop` environment
 <br>
 
+The default port for `truffle develop` is 9545, so it doesn't conflict with any conventional port.
 - Enter the `truffle develop` environment
 
         truffle develop
