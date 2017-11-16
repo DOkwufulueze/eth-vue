@@ -4,10 +4,11 @@ export const NETWORKS = {
   '3': 'Ropsten test network',
   '4': 'Rinkeby test network',
   '42': 'Kovan test network',
-  '4447': 'Truffle Develop Network'
+  '4447': 'Truffle Develop Network',
+  '5777': 'Ganache Blockchain'
 }
 
-export const APPROVED_NETWORK_ID = '3'
+export const APPROVED_NETWORK_ID = '5777'
 
 export const MUTATION_TYPES = {
   CHANGE_CURRENT_ROUTE_TO: 'changeCurrentRouteTo',
