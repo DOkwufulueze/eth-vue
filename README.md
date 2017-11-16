@@ -1,6 +1,8 @@
-# eth-vue Truffle Box
-This Truffle Box provides everything you need to quickly build Ethereum dApps that have authentication features with [vue](https://github.com/vuejs/vue). Built on [Truffle 4](https://github.com/trufflesuite/truffle/releases), it uses [vuex](https://github.com/vuejs/vuex) for state management, [vuex-persist](https://github.com/championswimmer/vuex-persist) for local storage of app state, and [vue-router](https://github.com/vuejs/vue-router) for routing.
+# eth-vue Truffle Box: Ganache Blockchain enabled
+This Truffle Box provides everything you need to quickly build Ethereum dApps that have authentication features with [vue](https://github.com/vuejs/vue), including an entire blockchain from Truffle: [Ganache](https://github.com/trufflesuite/ganache) for development and testing purposes. Built on [Truffle 4](https://github.com/trufflesuite/truffle/releases), it uses [vuex](https://github.com/vuejs/vuex) for state management, [vuex-persist](https://github.com/championswimmer/vuex-persist) for local storage of app state, and [vue-router](https://github.com/vuejs/vue-router) for routing.
 Authentication functionalities are handled by Smart Contracts running on the Ethereum blockchain.
+
+Again, you no longer have to worry about setting up your private blockchain while developing, eth-vue now comes with the new Truffle blockchain: [Ganache](https://github.com/trufflesuite/ganache).
 
 Simply unbox and start building your own dApp.
 
@@ -22,7 +24,7 @@ Simply unbox and start building your own dApp.
           networks: {
             development: {
               host: "localhost",
-              port: 8545,
+              port: 7545, // This is the Ganache default port. You can change it to the conventional 8545 if your network runs on 8545
               network_id: "*", // Match any network id. You may need to replace * with your network Id
               from: "", // Add your unlocked account within the double quotes
               gas: 4444444
@@ -39,13 +41,14 @@ Simply unbox and start building your own dApp.
           '3': 'Ropsten test network',
           '4': 'Rinkeby test network',
           '42': 'Kovan test network',
-          '4447': 'Truffle Develop Network'
+          '4447': 'Truffle Develop Network',
+          '5777': 'Ganache Blockchain'
         }
 
-        export const APPROVED_NETWORK_ID = '3'
+        export const APPROVED_NETWORK_ID = '5777'
 
-    The default network above is the Ropsten test network [`APPROVED_NETWORK_ID = '3'`], but you can change this.<br>
-    If your choice network is on the list of `NETWORKS` but is not Ropsten, then change the value of `APPROVED_NETWORK_ID` to the ID of your choice network. But if your choice network is not on the `NETWORKS` list, then add your network using the existing pattern [`<networkId>: <networkName>`], and change the value of `APPROVED_NETWORK_ID` to the ID of your choice network.
+    The default network above is the [Ganache](https://github.com/trufflesuite/ganache) Blockchain network [`APPROVED_NETWORK_ID = '5777'`], but you can change this, as Ganache was chosen for fast development and testing purposes only.<br>
+    If your choice network is on the list of `NETWORKS` but is not Ganache, then change the value of `APPROVED_NETWORK_ID` to the ID of your choice network. But if your choice network is not on the `NETWORKS` list, then add your network using the existing pattern [`<networkId>: <networkName>`], and change the value of `APPROVED_NETWORK_ID` to the ID of your choice network.
 <br>
 
 - Install npm dependencies
@@ -56,7 +59,7 @@ Simply unbox and start building your own dApp.
 ## Compilation and Migration
 To deploy the contracts, you can either compile and migrate to your custom network as configured in the `truffle.js` file or you could use the test network and test addresses that truffle 4 provides. Find details for both deployment processes below.
 
-### Compile and Migrate to your custom network as configured in `truffle.js`
+### Compile and Migrate to your custom network as configured in `truffle.js`. [For the [Ganache](https://github.com/trufflesuite/ganache) Blockchain, it runs on port 7545 and doesn't conflict with any conventional port. So edit your `truffle.js` file appropriately before deploying]
 
 - Compile the Contracts
 
