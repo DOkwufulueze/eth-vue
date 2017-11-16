@@ -1,8 +1,9 @@
-# eth-vue Truffle Box: Ganache Blockchain enabled
-This Truffle Box provides everything you need to quickly build Ethereum dApps that have authentication features with [vue](https://github.com/vuejs/vue), including an entire blockchain from Truffle: [Ganache](https://github.com/trufflesuite/ganache) for development and testing purposes. Built on [Truffle 4](https://github.com/trufflesuite/truffle/releases), it uses [vuex](https://github.com/vuejs/vuex) for state management, [vuex-persist](https://github.com/championswimmer/vuex-persist) for local storage of app state, and [vue-router](https://github.com/vuejs/vue-router) for routing.
+# eth-vue Truffle Box: Ganache Blockchain configuration included
+This Truffle Box provides everything you need to quickly build Ethereum dApps that have authentication features with [vue](https://github.com/vuejs/vue), including configuration for an entire blockchain from Truffle -- [Ganache](https://github.com/trufflesuite/ganache) for development and testing purposes.<br>
+Built on [Truffle 4](https://github.com/trufflesuite/truffle/releases), it uses [vuex](https://github.com/vuejs/vuex) for state management, [vuex-persist](https://github.com/championswimmer/vuex-persist) for local storage of app state, and [vue-router](https://github.com/vuejs/vue-router) for routing.
 Authentication functionalities are handled by Smart Contracts running on the Ethereum blockchain.
 
-Again, you no longer have to worry about setting up your private blockchain while developing, eth-vue now comes with the new Truffle blockchain: [Ganache](https://github.com/trufflesuite/ganache).
+Again, you no longer have to worry about setting up your private blockchain while developing, eth-vue now comes with configuration for the new Truffle blockchain: [Ganache](https://github.com/trufflesuite/ganache). Visit the [Ganache](https://github.com/trufflesuite/ganache) page for installation and startup instructions, install Ganache, and eth-vue will connect accordingly.
 
 Simply unbox and start building your own dApp.
 
