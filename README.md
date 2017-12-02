@@ -25,7 +25,7 @@ Simply unbox and start building your own dApp.
           networks: {
             development: {
               host: "localhost",
-              port: 7545, // This is the Ganache default port. You can change it to the conventional 8545 if your network runs on 8545
+              port: 7545, // This is the Ganache default port. You can change it to the conventional 8545 if your provider runs on 8545
               network_id: "*", // Match any network id. You may need to replace * with your network Id
               from: "", // Add your unlocked account within the double quotes
               gas: 4444444
@@ -49,7 +49,8 @@ Simply unbox and start building your own dApp.
         export const APPROVED_NETWORK_ID = '5777'
 
     The default network above is the [Ganache](https://github.com/trufflesuite/ganache) Blockchain network [`APPROVED_NETWORK_ID = '5777'`], but you can change this, as Ganache was chosen for fast development and testing purposes only.<br>
-    If your choice network is on the list of `NETWORKS` but is not Ganache, then change the value of `APPROVED_NETWORK_ID` to the ID of your choice network. But if your choice network is not on the `NETWORKS` list, then add your network using the existing pattern [`<networkId>: <networkName>`], and change the value of `APPROVED_NETWORK_ID` to the ID of your choice network.
+    If your choice network is on the list of `NETWORKS` but is not Ganache, then change the value of `APPROVED_NETWORK_ID` to the ID of your choice network. But if your choice network is not on the `NETWORKS` list, then add your network using the existing pattern [`<networkId>: <networkName>`], and change the value of `APPROVED_NETWORK_ID` to the ID of your choice network.<br>
+    If you're using Ganache, please remember to point your Ethereum provider [Metamask, for example] to a Custom RPC running on port 7545.
 <br>
 
 - Install npm dependencies
