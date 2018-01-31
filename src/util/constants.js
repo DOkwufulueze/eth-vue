@@ -8,7 +8,7 @@ export const NETWORKS = {
   '5777': 'Ganache Blockchain'
 }
 
-export const APPROVED_NETWORK_ID = '5777'
+export const APPROVED_NETWORK_ID = '3'
 
 export const MUTATION_TYPES = {
   CHANGE_CURRENT_ROUTE_TO: 'changeCurrentRouteTo',
