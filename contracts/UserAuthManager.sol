@@ -2,11 +2,11 @@ pragma solidity 0.4.18;
 
 import './lib/userManager.sol';
 
-contract Authentication is Destructible {
+contract UserAuthManager is Destructible {
   address public dbAddress;
   event SetUser(address indexed _userAddress, bool isSetUp);
 
-  function Authentication (address _dbAddress) public {
+  function UserAuthManager (address _dbAddress) public {
     require(_dbAddress != 0x0);
     dbAddress = _dbAddress;
   }
