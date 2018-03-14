@@ -1,4 +1,6 @@
 # eth-vue Truffle Box: Ropsten Network configuration included
+![eth-vue](https://raw.githubusercontent.com/DOkwufulueze/eth-vue/develop/static/images/eth-vue.png)
+
 This Truffle Box provides everything you need to quickly build Ethereum dApps that have authentication features with [vue](https://github.com/vuejs/vue), including configuration for easy deployment to the Ropsten Network. Connecting to a running [Ganache](https://github.com/trufflesuite/ganache) blockchain network from Truffle is also possible -- for fast development and testing purposes.<br>
 Built on [Truffle 4](https://github.com/trufflesuite/truffle/releases), [eth-vue](https://github.com/DOkwufulueze/eth-vue) uses [vuex](https://github.com/vuejs/vuex) for state management, [vuex-persist](https://github.com/championswimmer/vuex-persist) for local storage of app state, and [vue-router](https://github.com/vuejs/vue-router) for routing.
 Authentication functionalities are handled by Smart Contracts running on the Ethereum blockchain.
