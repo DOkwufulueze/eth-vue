@@ -3,7 +3,6 @@
     <HeaderTemplate :user="user" />
     <BodyTemplate
       :current-view="currentView"
-      :user="user"
     />
     <FooterTemplate />
   </div>
@@ -11,8 +10,13 @@
 
 <script>
   export default {
+    data: function () {
+      return {
+        user: this.$store.state.user
+      }
+    },
     name: 'dashboard',
-    props: [ 'currentView', 'user' ],
+    props: [ 'currentView' ],
     components: {
       HeaderTemplate,
       BodyTemplate,

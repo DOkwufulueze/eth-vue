@@ -17,6 +17,11 @@
 <script type="text/javascript">
   export default {
     name: 'header-template',
+    data: function () {
+      return {
+        user: this.$store.state.user
+      }
+    },
     methods: {
       ...mapActions([
         ACTION_TYPES.LOGIN,
@@ -25,10 +30,12 @@
       logUserIn (evt) {
         evt.target.disabled = true
         if (!this.user.isLoggedIn) {
-          Auth.login(this.$store.state)
-          .then((userData) => {
-            this[ACTION_TYPES.LOGIN](userData)
-            .then((userData) => {
+          UserManager.login(this.$store.state)
+          .then((userObject) => {
+            this.$store.dispatch(ACTION_TYPES.LOGIN, {
+              userObject
+            })
+            .then(() => {
               evt.target.disabled = false
               if (!this.user.isLoggedIn) {
                 this.$router.push('/')
@@ -36,14 +43,35 @@
                 this.$router.push('/dashboard')
               }
             })
-            .catch((err) => {
+            .catch(() => {
               evt.target.disabled = false
-              console.error(err)
+              console.log('Unable to LOGIN')
+              if (!(this.isDAppReady)) {
+                this.$store.dispatch(ACTION_TYPES.UPDATE_DAPP_READINESS, true)
+              }
             })
           })
-          .catch((err) => {
+          .catch((result = {}) => {
             evt.target.disabled = false
-            console.error(err)
+            console.error(result, 'Unable to login')
+            if (result.isValid) {
+              this.$store.dispatch(ACTION_TYPES.INITIALISE_IS_VALID_USER_BUT, result.warningMessage)
+              .then(() => {
+                if (!(this.isDAppReady)) {
+                  this.$store.dispatch(ACTION_TYPES.UPDATE_DAPP_READINESS, true)
+                }
+              })
+              .catch(() => {
+                console.log('Unable to INITIALISE_IS_VALID_USER_BUT')
+                if (!(this.isDAppReady)) {
+                  this.$store.dispatch(ACTION_TYPES.UPDATE_DAPP_READINESS, true)
+                }
+              })
+            } else {
+              if (!(this.isDAppReady)) {
+                this.$store.dispatch(ACTION_TYPES.UPDATE_DAPP_READINESS, true)
+              }
+            }
           })
         } else {
           evt.target.disabled = false
@@ -57,12 +85,11 @@
           this.$router.push('/')
         })
       }
-    },
-    props: [ 'user' ]
+    }
   }
 
   import { mapActions } from 'vuex'
-  import Auth from '../../js/Auth'
+  import UserManager from '../../js/UserManager'
   import { ACTION_TYPES } from '../../util/constants'
 </script>
 

@@ -19,7 +19,12 @@ contract UserAuthManager is Destructible {
     return userManager.login(dbAddress, msg.sender);
   }
 
-  function setUser (string firstName, string lastName, string email, bytes32 gravatar)
+  function setUser (
+    string firstName,
+    string lastName,
+    string email,
+    bytes32 gravatar
+  )
     external
     payable
   {

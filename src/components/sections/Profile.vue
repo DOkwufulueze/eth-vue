@@ -12,8 +12,12 @@
 
 <script>
   export default {
-    name: 'profile',
-    props: [ 'user' ]
+    data: function () {
+      return {
+        user: this.$store.state.user
+      }
+    },
+    name: 'profile'
   }
 </script>
 

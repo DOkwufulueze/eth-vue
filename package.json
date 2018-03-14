@@ -13,10 +13,18 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "bip39": "^2.4.0",
+    "ethereum-blockies": "^0.1.1",
+    "ethereumjs-wallet": "^0.6.0",
+    "gravatar-api": "^1.5.0",
+    "solidity-sha3": "^0.4.1",
+    "truffle-hdwallet-provider": "0.0.3",
     "vue": "^2.5.3",
     "vue-router": "^2.8.1",
     "vuex": "^2.5.0",
-    "vuex-persist": "^0.1.8"
+    "vuex-persist": "^0.1.8",
+    "web3": "0.19.0",
+    "web3-provider-engine": "^13.3.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.6",

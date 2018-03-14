@@ -1,46 +1,99 @@
 <template>
   <div id="profile-form">
     <h3>{{ this.$route.path === '/sign-up' ? 'Sign Up' : 'Edit Profile' }}</h3>
-    <div class="row">
-      <label for="first-name">First name</label>
-      <input type="text" id="first-name" name="first-name" v-model="user.firstName">
-    </div>
+    <div class="wrapper">
+      <div class="column">
+        <div class="row">
+          <label for="first-name">First name</label>
+          <input type="text" id="first-name" name="first-name" v-model="user.firstName">
+        </div>
 
-    <div class="row">
-      <label for="last-name">Last name</label>
-      <input type="text" id="Last-name" name="Last-name" v-model="user.lastName">
-    </div>
+        <div class="row">
+          <label for="last-name">Last name</label>
+          <input type="text" id="Last-name" name="Last-name" v-model="user.lastName">
+        </div>
 
-    <div class="row">
-      <label for="email">Email</label>
-      <input type="text" id="email" name="email" v-model="user.email">
-    </div>
+        <div class="row">
+          <label for="email">Email</label>
+          <input type="text" id="email" name="email" @input="setAvatar" v-model="user.email">
+        </div>
 
-    <div class="row">
-      <input type="button" value="Submit" @click="submitProfileToTheBlockchain">
+        <div class="row">
+          <input type="button" value="Submit" @click="submitProfileToTheBlockchain">
+        </div>
+      </div>
+
+      <div class="avatar-column">
+        <div class="avatar"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script type="text/javascript">
   export default {
+    data: function () {
+      return {
+        user: this.$store.state.user
+      }
+    },
     methods: {
       ...mapActions([
         ACTION_TYPES.LOGIN
       ]),
+      setAvatar (evt = null) {
+        const email = evt && evt.target && evt.target.value !== undefined ? evt.target.value.trim() : this.user.email.trim()
+        this.$root.callUpdateUserGravatar({
+          email: email,
+          callback: (avatarCanvas) => {
+            this.styleAndAddAvatarCanvasToPage(avatarCanvas)
+          }
+        })
+      },
+      styleAvatarCanvas (avatarCanvas) {
+        if (avatarCanvas && avatarCanvas.style) {
+          avatarCanvas.style.borderRadius = '104px'
+        }
+      },
+      addAvatarCanvasToPage (avatarCanvas) {
+        const avatarContainer = document.querySelector('.avatar')
+        if (avatarContainer && avatarCanvas && avatarCanvas.style) {
+          const formerCanvas = avatarContainer.querySelector('canvas')
+          if (formerCanvas) {
+            avatarContainer.replaceChild(avatarCanvas, formerCanvas)
+          } else {
+            avatarContainer.appendChild(avatarCanvas)
+          }
+        }
+      },
+      styleAndAddAvatarCanvasToPage (avatarCanvas) {
+        this.styleAvatarCanvas(avatarCanvas)
+        this.addAvatarCanvasToPage(avatarCanvas)
+      },
       submitProfileToTheBlockchain (evt) {
         evt.target.disabled = true
         const action = this.$route.path === '/sign-up' ? 'signup' : 'editProfile'
-        const userProfileData = {
-          firstName: this.user.firstName,
-          lastName: this.user.lastName,
-          email: this.user.email
+        const userObject = {
+          firstName: `b${this.user.firstName || ''}`,
+          lastName: `b${this.user.lastName || ''}`,
+          email: `b${this.user.email || ''}`,
+          gravatar: `b${this.user.gravatar || ''}`
         }
 
-        Auth[action](this.$store.state, userProfileData)
-        .then((userData) => {
-          this[ACTION_TYPES.LOGIN](userData)
-          .then((userData) => {
+        const vueUserObject = Object.assign({}, userObject, {
+          firstName: this.user.firstName || '',
+          lastName: this.user.lastName || '',
+          email: this.user.email || '',
+          gravatar: this.user.gravatar || ''
+        })
+
+        this.$root.callToWriteUser({
+          vueObject: vueUserObject,
+          requestParams: userObject,
+          contractIndexToUse: 'UserAuthManager',
+          methodName: 'setUser',
+          managerIndex: 'UserManager',
+          callback: (userData = null) => {
             evt.target.disabled = false
             console.log(action === 'signup' ? 'Signed up and logged In' : 'Successfully updated profile')
             if (this.user.email === '' || !this.user.isLoggedIn) {
@@ -48,24 +101,18 @@
             } else {
               this.$router.push('/dashboard')
             }
-          })
-          .catch((err) => {
-            evt.target.disabled = false
-            console.error(err)
-          })
-        })
-        .catch((err) => {
-          evt.target.disabled = false
-          console.error(err)
+          }
         })
       }
     },
-    props: [ 'user' ]
+    mounted: function () {
+      this.setAvatar()
+    },
+    name: 'profile-form'
   }
 
   import { mapActions } from 'vuex'
   import { ACTION_TYPES } from '../../util/constants'
-  import Auth from '../../js/Auth'
 </script>
 
 <style scoped>
@@ -82,13 +129,39 @@
     margin-bottom: 20px;
   }
 
+  .wrapper {
+    width: 460px;
+    margin: auto;
+  }
+
+  .column {
+    width: 300px;
+    display: inline-block;
+  }
+
   .row {
     margin-top: 20px;
     font-size: 14px;
     width: 300px;
     height: 40px;
     display: block;
-    margin: auto;
+  }
+
+  .avatar {
+    height: 104px;
+    width: 104px;
+    position: absolute;
+  }
+
+  .avatar-column {
+    height: 106px;
+    width: 106px;
+    display: inline-block;
+    position: absolute;
+    top: 60px;
+    margin-left: 20px;
+    border: 1px solid #dcdede;
+    border-radius: 106px;
   }
 
   label {

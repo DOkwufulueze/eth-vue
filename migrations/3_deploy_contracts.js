@@ -24,6 +24,13 @@ module.exports = function (deployer) {
       DBContract.at(value).addPermittedContract(setupAddress, { from: web3.eth.coinbase })
       .then(function (res) {
         console.log(res);
+        Setup.at(setupAddress).setConfig()
+        .then(function (setupRes) {
+          console.log(setupRes);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
       })
       .catch(function (error) {
         console.error(error);

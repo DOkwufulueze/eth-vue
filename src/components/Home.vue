@@ -1,9 +1,8 @@
 <template>
   <div id="home">
-    <HeaderTemplate :user="user" />
+    <HeaderTemplate />
     <BodyTemplate
       :current-view="currentView"
-      :user="user"
     />
     <FooterTemplate />
   </div>
@@ -12,7 +11,7 @@
 <script>
   export default {
     name: 'home',
-    props: [ 'currentView', 'user' ],
+    props: [ 'currentView' ],
     components: {
       HeaderTemplate,
       BodyTemplate,

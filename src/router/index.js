@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import Dashboard from '@/components/Dashboard'
+import Profile from '@/components/sections/Profile.vue'
+import ProfileForm from '@/components/sections/ProfileForm.vue'
+import Web3Message from '@/components/sections/Web3Message.vue'
 
 Vue.use(Router)
 
@@ -10,28 +13,37 @@ export default new Router({
     {
       mode: 'history',
       path: '/',
-      name: 'Home',
-      component: Home
+      name: 'Root',
+      component: Home,
+      meta: { view: Web3Message }
     },
     {
       mode: 'history',
       path: '/home',
-      component: Home
+      name: 'Home',
+      component: Home,
+      meta: { view: Web3Message }
     },
     {
       mode: 'history',
       path: '/dashboard',
-      component: Dashboard
+      name: 'Dashboard',
+      component: Dashboard,
+      meta: { view: Profile }
     },
     {
       mode: 'history',
       path: '/sign-up',
-      component: Home
+      name: 'SignUp',
+      component: Home,
+      meta: { view: ProfileForm }
     },
     {
       mode: 'history',
       path: '/profile/edit',
-      component: Dashboard
+      name: 'ProfileEdit',
+      component: Dashboard,
+      meta: { view: ProfileForm }
     }
   ]
 })

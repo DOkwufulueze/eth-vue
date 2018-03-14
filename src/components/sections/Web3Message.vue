@@ -27,7 +27,7 @@
           </div>
         </div>
         <div v-else>
-          Your browser is not Web3-injected. To use the dApp, you can install <a href='https://metamask.io/'>Metamask</a>.
+          {{  user.warningMessage }} To use the eth-vue dApp, you can begin by installing a Web3 injector like <a href='https://metamask.io/'>Metamask</a>.
           <div class="metamask-resource" @click="goToMetamask"></div>
         </div>
       </div>
@@ -43,17 +43,17 @@
         return this.user.coinbase
       }
     },
-    data: () => {
+    data: function () {
       return {
-        approvedNetworkName: NETWORKS[APPROVED_NETWORK_ID]
+        approvedNetworkName: NETWORKS[APPROVED_NETWORK_ID],
+        user: this.$store.state.user
       }
     },
     methods: {
       goToMetamask () {
         window.location.href = 'https://metamask.io/'
       }
-    },
-    props: [ 'user' ]
+    }
   }
 
   import { APPROVED_NETWORK_ID, NETWORKS } from '../../util/constants'

@@ -1,5 +1,6 @@
 export default {
   currentRoute: null,
+  currentView: null,
   web3: {
     address: null,
     coinbase: null,
@@ -9,13 +10,18 @@ export default {
     networkId: null
   },
   user: {
+    balance: '0.00',
     coinbase: '',
     email: '',
     firstName: '',
-    lastName: '',
+    gravatar: '',
     hasCoinbase: false,
     hasWeb3InjectedBrowser: false,
     isConnectedToApprovedNetwork: false,
-    isLoggedIn: false
-  }
+    isLoggedIn: false,
+    lastName: ''
+  },
+  isDAppReady: false,
+  isValidUserBut: '0',
+  originalIsValidUserBut: '0'
 }

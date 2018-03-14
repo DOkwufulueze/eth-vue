@@ -18,7 +18,7 @@ contract Setup is Destructible {
     onlyOwner
   {
     DB(dbAddress).setUIntValue(keccak256('config/max-user-name-length'), 50);
-    DB(dbAddress).setUIntValue(keccak256('config/min-user-name-length'), 5);
+    DB(dbAddress).setUIntValue(keccak256('config/min-user-name-length'), 2);
     DB(dbAddress).setUIntValue(keccak256('config/max-user-email-length'), 80);
     DB(dbAddress).setUIntValue(keccak256('config/min-user-email-length'), 0);
   }

@@ -1,9 +1,11 @@
-# eth-vue Truffle Box: Ganache Blockchain configuration included
-This Truffle Box provides everything you need to quickly build Ethereum dApps that have authentication features with [vue](https://github.com/vuejs/vue), including configuration for an entire blockchain from Truffle -- [Ganache](https://github.com/trufflesuite/ganache) for development and testing purposes.<br>
-Built on [Truffle 4](https://github.com/trufflesuite/truffle/releases), it uses [vuex](https://github.com/vuejs/vuex) for state management, [vuex-persist](https://github.com/championswimmer/vuex-persist) for local storage of app state, and [vue-router](https://github.com/vuejs/vue-router) for routing.
+# eth-vue Truffle Box: Ropsten Network configuration included
+This Truffle Box provides everything you need to quickly build Ethereum dApps that have authentication features with [vue](https://github.com/vuejs/vue), including configuration for easy deployment to the Ropsten Network. Connecting to a running [Ganache](https://github.com/trufflesuite/ganache) blockchain network from Truffle is also possible -- for fast development and testing purposes.<br>
+Built on [Truffle 4](https://github.com/trufflesuite/truffle/releases), [eth-vue](https://github.com/DOkwufulueze/eth-vue) uses [vuex](https://github.com/vuejs/vuex) for state management, [vuex-persist](https://github.com/championswimmer/vuex-persist) for local storage of app state, and [vue-router](https://github.com/vuejs/vue-router) for routing.
 Authentication functionalities are handled by Smart Contracts running on the Ethereum blockchain.
 
-Again, you no longer have to worry about setting up your private blockchain while developing, eth-vue now comes with configuration for the new Truffle blockchain: [Ganache](https://github.com/trufflesuite/ganache). Visit the [Ganache](https://github.com/trufflesuite/ganache) page for installation and startup instructions, install Ganache, and eth-vue will connect accordingly.
+With deployment configuration for the Ropsten Network, deployment to the remote test network doesn't have to be a pain anymore. It's now as simple as `truffle migrate --network ropsten`
+
+If you have a running Ganache blockchain network, configuring with [eth-vue](https://github.com/DOkwufulueze/eth-vue) will connect you immediately to the private blockchain. Visit the [Ganache](https://github.com/trufflesuite/ganache) page for installation and startup instructions, install Ganache, and [eth-vue](https://github.com/DOkwufulueze/eth-vue) will connect accordingly.
 
 Simply unbox and start building your own dApp.
 
@@ -21,7 +23,9 @@ Simply unbox and start building your own dApp.
 - Configure your environment
   - Open the `truffle.js` file. You'll find the following:
 
+        ...
         module.exports = {
+          ...
           networks: {
             development: {
               host: "localhost",
@@ -76,10 +80,22 @@ To deploy the contracts, you can either compile and migrate to your custom netwo
         truffle migrate
 <br>
 
+### Compile and Migrate to the Ropsten test network [this is very straightforward]
+
+- Compile the Contracts on Ropsten
+
+        truffle compile --network ropsten
+<br>
+
+- Deploy the compiled Contracts to Ropsten
+
+        truffle migrate --network ropsten
+<br>
+
 ### Compile and Migrate using the `truffle develop` environment
 <br>
 
-The default port for `truffle develop` is 9545, so it doesn't conflict with any conventional port.
+The default port for `truffle develop` is 9545, so it doesn't conflict with any conventional port. Edit `truffle.js` appropriately.
 - Enter the `truffle develop` environment
 
         truffle develop
