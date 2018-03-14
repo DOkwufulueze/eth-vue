@@ -17,7 +17,7 @@ class UserManager {
     }
   }
 
-  writeData (state = null, data = {}) {
+  accessBlockchain (state = null, data = {}, value = '') {
     const blockchainData = Object.assign({}, data)
     const contractToUse = blockchainData.contractIndexToUse ? userManager.getContractToUse()[blockchainData.contractIndexToUse] : null
     const blockchainMethodName = blockchainData.methodName
@@ -27,14 +27,17 @@ class UserManager {
     return blockchainManager.querySmartContract({
       contractToUse: contractToUse || UserAuthManager,
       smartContractMethod: blockchainMethodName,
-      smartContractMethodParams: (coinbase) => [...(Object.values(blockchainData)), {from: coinbase}],
+      smartContractMethodParams: (coinbase) => {
+        const blockchainPayload = value !== '' ? {from: coinbase, value} : {from: coinbase}
+        return [...(Object.values(blockchainData)), blockchainPayload]
+      },
       state,
-      smartContractResolve: result => data,
+      smartContractResolve: result => result,
       smartContractReject: error => error
     })
   }
 
-  login (state = null, userParams = {}) {
+  promisifyUserData (state = null, userParams = {}) {
     return new Promise((resolve, reject) => {
       const userObject = {}
       const userId = userParams.userId || state.web3.coinbase

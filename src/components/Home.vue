@@ -1,6 +1,9 @@
 <template>
   <div id="home">
-    <HeaderTemplate />
+    <HeaderTemplate
+      @log-user-in="logUserIn"
+      @log-user-out="logUserOut"
+    />
     <BodyTemplate
       :current-view="currentView"
     />
@@ -11,7 +14,15 @@
 <script>
   export default {
     name: 'home',
-    props: [ 'currentView' ],
+    props: ['currentView'],
+    methods: {
+      logUserIn (evt) {
+        this.$emit('log-user-in', evt)
+      },
+      logUserOut (evt) {
+        this.$emit('log-user-out', evt)
+      }
+    },
     components: {
       HeaderTemplate,
       BodyTemplate,

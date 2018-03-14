@@ -1,6 +1,9 @@
 <template v-if="isLoggedIn">
   <div id="dashboard">
-    <HeaderTemplate :user="user" />
+    <HeaderTemplate
+      @log-user-in="logUserIn"
+      @log-user-out="logUserOut"
+    />
     <BodyTemplate
       :current-view="currentView"
     />
@@ -28,7 +31,13 @@
     methods: {
       ...mapActions([
         ACTION_TYPES.LOGIN
-      ])
+      ]),
+      logUserIn (evt) {
+        this.$emit('log-user-in', evt)
+      },
+      logUserOut (evt) {
+        this.$emit('log-user-out', evt)
+      }
     }
   }
 

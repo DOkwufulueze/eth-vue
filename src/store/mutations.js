@@ -25,12 +25,14 @@ function getHash (stringValue) {
   let hash = 0
   let characterCode
 
-  if (stringValue.length === 0) return hash
+  if (stringValue) {
+    if (stringValue.length === 0) return hash
 
-  for (let i = 0; i < stringValue.length; i++) {
-    characterCode = stringValue.charCodeAt(i)
-    hash = ((hash << 5) - hash) + characterCode
-    hash |= 0 // Convert to 32-bit integer
+    for (let i = 0; i < stringValue.length; i++) {
+      characterCode = stringValue.charCodeAt(i)
+      hash = ((hash << 5) - hash) + characterCode
+      hash |= 0 // Convert to 32-bit integer
+    }
   }
 
   return hash

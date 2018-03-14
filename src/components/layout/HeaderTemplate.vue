@@ -23,74 +23,16 @@
       }
     },
     methods: {
-      ...mapActions([
-        ACTION_TYPES.LOGIN,
-        ACTION_TYPES.LOGOUT
-      ]),
-      logUserIn (evt) {
-        evt.target.disabled = true
-        if (!this.user.isLoggedIn) {
-          UserManager.login(this.$store.state)
-          .then((userObject) => {
-            this.$store.dispatch(ACTION_TYPES.LOGIN, {
-              userObject
-            })
-            .then(() => {
-              evt.target.disabled = false
-              if (!this.user.isLoggedIn) {
-                this.$router.push('/')
-              } else {
-                this.$router.push('/dashboard')
-              }
-            })
-            .catch(() => {
-              evt.target.disabled = false
-              console.log('Unable to LOGIN')
-              if (!(this.isDAppReady)) {
-                this.$store.dispatch(ACTION_TYPES.UPDATE_DAPP_READINESS, true)
-              }
-            })
-          })
-          .catch((result = {}) => {
-            evt.target.disabled = false
-            console.error(result, 'Unable to login')
-            if (result.isValid) {
-              this.$store.dispatch(ACTION_TYPES.INITIALISE_IS_VALID_USER_BUT, result.warningMessage)
-              .then(() => {
-                if (!(this.isDAppReady)) {
-                  this.$store.dispatch(ACTION_TYPES.UPDATE_DAPP_READINESS, true)
-                }
-              })
-              .catch(() => {
-                console.log('Unable to INITIALISE_IS_VALID_USER_BUT')
-                if (!(this.isDAppReady)) {
-                  this.$store.dispatch(ACTION_TYPES.UPDATE_DAPP_READINESS, true)
-                }
-              })
-            } else {
-              if (!(this.isDAppReady)) {
-                this.$store.dispatch(ACTION_TYPES.UPDATE_DAPP_READINESS, true)
-              }
-            }
-          })
-        } else {
-          evt.target.disabled = false
-        }
+      logUserIn (evt = null) {
+        if (evt) evt.target.disabled = true
+        this.$emit('log-user-in', evt)
       },
-      logUserOut (evt) {
-        evt.target.disabled = true
-        this[ACTION_TYPES.LOGOUT]()
-        .then(() => {
-          evt.target.disabled = false
-          this.$router.push('/')
-        })
+      logUserOut (evt = null) {
+        if (evt) evt.target.disabled = true
+        this.$emit('log-user-out', evt)
       }
     }
   }
-
-  import { mapActions } from 'vuex'
-  import UserManager from '../../js/UserManager'
-  import { ACTION_TYPES } from '../../util/constants'
 </script>
 
 <style scoped>

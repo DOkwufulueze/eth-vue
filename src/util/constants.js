@@ -23,10 +23,6 @@ export const MUTATION_TYPES = {
   INITIALISE_IS_VALID_USER_BUT: 'initialiseIsValidUserBut',
   SET_IS_VALID_USER_BUT: 'setIsValidUserBut',
   RESET_IS_VALID_USER_BUT: 'resetIsValidUserBut',
-  SAVE_CURRENT_SEARCH_SEED: 'saveCurrentSearchSeed',
-  CLEAR_SEARCH_RESULT: 'clearSearchResult',
-  SAVE_SEARCH_RESULT: 'saveSearchResult',
-  SAVE_TOTAL_NUMBER_AVAILABLE: 'saveTotalNumberAvailable',
   LOGIN: 'login',
   LOGOUT: 'logout'
 }
