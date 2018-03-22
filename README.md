@@ -1,4 +1,4 @@
-## eth-vue Truffle Box: Ropsten Network Configuration And Gravatar access
+## eth-vue Truffle Box: With Ganache Option, Ropsten Network Configuration, and Gravatar access
 <br><br>
 ![eth-vue](https://raw.githubusercontent.com/DOkwufulueze/eth-vue/master/box-img-lg.png)
 
