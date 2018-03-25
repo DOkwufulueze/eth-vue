@@ -24,6 +24,9 @@ Simply unbox and start building your own dApp.
 - Enter your development directory [eg. cd into a newly created `eth-vue` directory] and unbox `DOkwufulueze/eth-vue`
 
         truffle unbox DOkwufulueze/eth-vue
+Or clone this repository from GitHub and `cd` into the `eth-vue` directory:
+
+        git clone https://github.com/DOkwufulueze/eth-vue.git
 <br>
 
 - Configure your environment
@@ -66,7 +69,9 @@ Simply unbox and start building your own dApp.
     For Truffle develop network, point your Ethereum provider [Metamask, for example] to a Custom RPC running on port 9545.
 <br>
 
-- Install npm dependencies
+- Install npm dependencies if necessary.
+
+     ###### NOTE: If you unboxed this boilerplate from Truffle [`truffle unbox DOkwufulueze/eth-vue`], then running `npm install` is not necessary since unboxing runs `npm install` by default. But if you cloned this boilerplate from GitHub [`git clone https://github.com/DOkwufulueze/eth-vue.git`], please run `npm install` as stated below.
 
         npm install
 <br>
@@ -76,12 +81,12 @@ To deploy the contracts, you can either compile and migrate to your custom netwo
 
 ### Compile and Migrate to your custom network as configured in `truffle.js`. [For the [Ganache](https://github.com/trufflesuite/ganache) Blockchain, it runs on port 7545 and doesn't conflict with any conventional port. So edit your `truffle.js` file appropriately before deploying]
 
-- Compile the Contracts
+- Compile the Contracts [remember to add the `--network ropsten` option if you didn't change the `APPROVED_NETWORK_ID` in `src/util/constants.js` from the default `3` to another id]
 
         truffle compile
 <br>
 
-- Deploy the compiled contracts
+- Deploy the compiled contracts [remember to add the `--network ropsten` option if you didn't change the `APPROVED_NETWORK_ID` in `src/util/constants.js` from the default `3` to another id]
 
         truffle migrate
 <br>
