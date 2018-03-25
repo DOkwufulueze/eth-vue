@@ -18,7 +18,10 @@ Simply unbox and start building your own dApp.
         npm install -g truffle
 <br>
 
-- Enter your development directory and unbox `DOkwufulueze/eth-vue`
+###### NOTE: If unboxing DOkwufulueze/eth-vue had failed previously due to absence of node-gyp, simply run `npm install --global node-gyp`. Or if it failed due to a problem with an existing node-gyp, run `node-gyp rebuild`. Else ignore this note and move on to the next instruction.
+<br>
+
+- Enter your development directory [eg. cd into a newly created `eth-vue` directory] and unbox `DOkwufulueze/eth-vue`
 
         truffle unbox DOkwufulueze/eth-vue
 <br>
