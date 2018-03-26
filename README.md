@@ -24,7 +24,7 @@ Simply unbox and start building your own dApp.
 - Enter your development directory [eg. cd into a newly created `eth-vue` directory] and unbox `DOkwufulueze/eth-vue`
 
         truffle unbox DOkwufulueze/eth-vue
-Or clone this repository from GitHub and `cd` into the `eth-vue` directory:
+    Or clone this repository from GitHub and `cd` into the `eth-vue` directory:
 
         git clone https://github.com/DOkwufulueze/eth-vue.git
 <br>
