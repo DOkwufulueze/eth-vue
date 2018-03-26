@@ -57,7 +57,7 @@ Or clone this repository from GitHub and `cd` into the `eth-vue` directory:
           '42': 'Kovan test network',
           '4447': 'Truffle Develop Network',
           '5777': 'Ganache Blockchain',
-          '666': 'Daniel Private Blockchain' // This is my private blockchain. You can change it to your own private blockchain if you have one.
+          '666': 'Daniel Private Blockchain' // This is a test private blockchain. You can change it to your own private blockchain if you have one.
         }
 
         export const APPROVED_NETWORK_ID = '3'
