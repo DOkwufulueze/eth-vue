@@ -57,10 +57,11 @@ Or clone this repository from GitHub and `cd` into the `eth-vue` directory:
           '42': 'Kovan test network',
           '4447': 'Truffle Develop Network',
           '5777': 'Ganache Blockchain',
-          '666': 'Daniel Private Blockchain'
+          '666': 'Daniel Private Blockchain' // This is my private blockchain. You can change it to your own private blockchain if you have one.
         }
 
         export const APPROVED_NETWORK_ID = '3'
+        ...
 
     The default network above is the Ropsten network [`APPROVED_NETWORK_ID = '3'`], but you can change this, as Ropsten was chosen for testing purpose only.<br>
     If your choice network is on the list of `NETWORKS` but is not Ropsten, then change the value of `APPROVED_NETWORK_ID` to the ID of your choice network. For example, if one is to use the private Blockchain above [`'666': 'Daniel Private Blockchain'`], then `APPROVED_NETWORK_ID` would be `'666'`.<br>
