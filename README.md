@@ -139,7 +139,7 @@ The default port for `truffle develop` is 9545, so it doesn't conflict with any 
 ### Please send bug issues you may encounter to [Issues](https://github.com/DOkwufulueze/eth-vue/issues)
 <br><br>
 ## Copyleft
-![Copyleft](/static/images/copyleft.png) 2017 Daniel Okwufulueze
+![Copyleft](https://raw.githubusercontent.com/DOkwufulueze/eth-vue/master/static/images/copyleft.png) 2017 Daniel Okwufulueze
 <br><br>
 ## Licence
 This dApp is distributed under the [GNU GPL-3.0](https://github.com/DOkwufulueze/eth-vue/blob/master/LICENCE.md) licence.
