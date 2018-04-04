@@ -133,7 +133,7 @@ The default port for `truffle develop` is 9545, so it doesn't conflict with any 
 
         localhost:3001
 
-## And that's it, you're DONE.
+## And that's it, you're DONE!
 
 <br><br>
 ### Please send bug issues you may encounter to [Issues](https://github.com/DOkwufulueze/eth-vue/issues)
