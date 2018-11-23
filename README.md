@@ -1,3 +1,4 @@
+[![Made in Nigeria](https://img.shields.io/badge/made%20in-nigeria-008751.svg?style=flat-square)](https://github.com/acekyd/made-in-nigeria)
 ## eth-vue Truffle Box: With Ganache Blockchain Option, Ropsten Network Configuration, and Gravatar access
 <br><br>
 ![eth-vue](https://raw.githubusercontent.com/DOkwufulueze/eth-vue/master/box-img-lg.png)
