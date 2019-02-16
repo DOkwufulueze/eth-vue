@@ -27,8 +27,11 @@
           </div>
         </div>
         <div v-else>
-          {{  user.warningMessage }} To use the eth-vue dApp, you can begin by installing a Web3 injector like <a href='https://metamask.io/'>Metamask</a>.
-          <div class="metamask-resource" @click="goToMetamask"></div>
+          {{ user.warningMessage }} To use the eth-vue dApp, you can begin by installing a Web3 injector like <a href="https://metamask.io/">Metamask</a>.
+          <div
+            class="metamask-resource"
+            @click="goToMetamask"
+          />
         </div>
       </div>
     </div>
@@ -36,27 +39,27 @@
 </template>
 
 <script>
-  export default {
-    name: 'web3-message',
-    computed: {
-      coinbase () {
-        return this.user.coinbase
-      }
-    },
-    data: function () {
-      return {
-        approvedNetworkName: NETWORKS[APPROVED_NETWORK_ID],
-        user: this.$store.state.user
-      }
-    },
-    methods: {
-      goToMetamask () {
-        window.location.href = 'https://metamask.io/'
-      }
+export default {
+  name: 'Web3Message',
+  data: function () {
+    return {
+      approvedNetworkName: NETWORKS[APPROVED_NETWORK_ID],
+      user: this.$store.state.user
+    }
+  },
+  computed: {
+    coinbase () {
+      return this.user.coinbase
+    }
+  },
+  methods: {
+    goToMetamask () {
+      window.location.href = 'https://metamask.io/'
     }
   }
+}
 
-  import { APPROVED_NETWORK_ID, NETWORKS } from '../../util/constants'
+import { APPROVED_NETWORK_ID, NETWORKS } from '../../util/constants'
 </script>
 
 <style scoped>

@@ -16,19 +16,21 @@ class BlockchainManager {
       const DBContract = contract(DB)
       DBContract.setProvider(state.web3.instance().currentProvider)
       DBContract.deployed()
-      .then((contractInstance) => {
-        contractInstance.getAddressValue(soliditySha3(dbContractKey), { from: coinbase })
-        .then((result) => {
-          // Successful Fetch
-          resolve(result)
+        .then((contractInstance) => {
+          contractInstance.getAddressValue(soliditySha3(dbContractKey), { from: coinbase })
+            .then((result) => {
+              // Successful Fetch
+              resolve(result)
+            })
+            .catch((error) => {
+              /* eslint-disable-next-line */
+              reject({ error, isValid: true, warningMessage: "We're unable to get the current contract address from the blockchain. Please do try again in a few minutes." })
+            })
         })
         .catch((error) => {
-          reject({ error, isValid: true, warningMessage: "We're unable to get the current contract address from the blockchain. Please do try again in a few minutes." })
+          /* eslint-disable-next-line */
+          reject({ error, isValid: true, warningMessage: "We couldn't find Eth-Vue Smart Contracts on your detected network. This is because the Smart Contracts aren't deployed there." })
         })
-      })
-      .catch((error) => {
-        reject({ error, isValid: true, warningMessage: "We couldn't find Eth-Vue Smart Contracts on your detected network. This is because the Smart Contracts aren't deployed there." })
-      })
     })
   }
 
@@ -36,6 +38,7 @@ class BlockchainManager {
     const state = dataObject.state
     return new Promise((resolve, reject) => {
       if (!state || !state.web3 || !(state.web3.instance)) {
+        /* eslint-disable-next-line */
         reject({ error: true, warningMessage: 'Web3 is not initialised. Use a Web3 injector' })
       } else {
         if (state.web3.networkId === APPROVED_NETWORK_ID) {
@@ -44,12 +47,14 @@ class BlockchainManager {
           ethVueContract.setProvider(state.web3.instance().currentProvider)
           state.web3.instance().eth.getCoinbase((error, coinbase) => {
             if (error) {
+              /* eslint-disable-next-line */
               reject({ error, warningMessage: 'Unable to get coinbase for this operation' })
             } else {
               blockchainManager.runBlockchainPromise(resolve, reject, { ethVueContract, method: dataObject.method, coinbase })
             }
           })
         } else {
+          /* eslint-disable-next-line */
           reject({ error: true, warningMessage: `You're not on the same blockchain as us. Please connect to the ${NETWORKS[APPROVED_NETWORK_ID]}` })
         }
       }
@@ -57,20 +62,19 @@ class BlockchainManager {
   }
 
   runBlockchainPromise (resolve, reject, dataObject) {
-    // dataObject.ethVueContract.at(dataObject.addressToUse)
     dataObject.ethVueContract.deployed()
-    .then((contractInstance) => {
-      dataObject.method(contractInstance, dataObject.coinbase)
-      .then((result) => {
-        resolve(result)
+      .then((contractInstance) => {
+        dataObject.method(contractInstance, dataObject.coinbase)
+          .then((result) => {
+            resolve(result)
+          })
+          .catch((error) => {
+            reject(error)
+          })
       })
       .catch((error) => {
-        reject(error)
+        reject({ error, isValid: true, warningMessage: "We couldn't find Eth-Vue Smart Contracts on your detected network. This is because the Smart Contracts aren't deployed there." })
       })
-    })
-    .catch((error) => {
-      reject({ error, isValid: true, warningMessage: "We couldn't find Eth-Vue Smart Contracts on your detected network. This is because the Smart Contracts aren't deployed there." })
-    })
   }
 
   querySmartContract (query) {
@@ -82,22 +86,22 @@ class BlockchainManager {
         method: query.method || ((contractInstance, coinbase) => {
           return new Promise((resolve, reject) => {
             contractInstance[query.smartContractMethod](...(query.smartContractMethodParams(coinbase)))
-            .then((result) => {
+              .then((result) => {
               // Successful Fetch
-              resolve(query.smartContractResolve(result))
-            })
-            .catch((error) => {
-              reject(query.smartContractReject(error))
-            })
+                resolve(query.smartContractResolve(result))
+              })
+              .catch((error) => {
+                reject(query.smartContractReject(error))
+              })
           })
         })
       })
-      .then((result) => {
-        resolve(result)
-      })
-      .catch((error) => {
-        reject(error)
-      })
+        .then((result) => {
+          resolve(result)
+        })
+        .catch((error) => {
+          reject(error)
+        })
     })
   }
 }

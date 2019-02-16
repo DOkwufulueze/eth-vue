@@ -6,24 +6,36 @@
       :is-valid-user-but="isValidUserBut"
       @log-user-in="logUserIn"
       @log-user-out="logUserOut"
-    >
-    </router-view>
+    />
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'app',
-    methods: {
-      logUserIn (evt) {
-        this.$emit('log-user-in', evt)
-      },
-      logUserOut (evt) {
-        this.$emit('log-user-out', evt)
-      }
+export default {
+  name: 'App',
+  props: {
+    isDAppReady: {
+      type: Boolean,
+      default: false
     },
-    props: [ 'isDAppReady', 'currentView', 'isValidUserBut' ]
+    currentView: {
+      type: Object,
+      default: null
+    },
+    isValidUserBut: {
+      type: String,
+      default: '0'
+    }
+  },
+  methods: {
+    logUserIn (evt) {
+      this.$emit('log-user-in', evt)
+    },
+    logUserOut (evt) {
+      this.$emit('log-user-out', evt)
+    }
   }
+}
 
 </script>
 

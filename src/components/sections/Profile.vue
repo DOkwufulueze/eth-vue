@@ -11,14 +11,14 @@
 </template>
 
 <script>
-  export default {
-    data: function () {
-      return {
-        user: this.$store.state.user
-      }
-    },
-    name: 'profile'
+export default {
+  name: 'Profile',
+  data: function () {
+    return {
+      user: this.$store.state.user
+    }
   }
+}
 </script>
 
 <style scoped>

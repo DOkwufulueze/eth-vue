@@ -1,7 +1,7 @@
 import DB from '../../build/contracts/DB.json'
 import UserAuthManager from '../../build/contracts/UserAuthManager.json'
 import blockchainManager from './BlockchainManager'
-import {getObjectFromResponse, getSlicedAddressString, getSoliditySha3ForId, getGravatarFor} from './utilities'
+import { getObjectFromResponse, getSlicedAddressString, getSoliditySha3ForId, getGravatarFor } from './utilities'
 
 let userManager = null
 
@@ -28,7 +28,7 @@ class UserManager {
       contractToUse: contractToUse || UserAuthManager,
       smartContractMethod: blockchainMethodName,
       smartContractMethodParams: (coinbase) => {
-        const blockchainPayload = value !== '' ? {from: coinbase, value} : {from: coinbase}
+        const blockchainPayload = value !== '' ? { from: coinbase, value } : { from: coinbase }
         return [...(Object.values(blockchainData)), blockchainPayload]
       },
       state,
@@ -42,13 +42,13 @@ class UserManager {
       const userObject = {}
       const userId = userParams.userId || state.web3.coinbase
       userManager.getUserData(state, userId, userParams)
-      .then((result) => {
-        Object.assign(userObject, result)
-        userManager.refineUserData(userObject, () => {
-          resolve(userObject)
+        .then((result) => {
+          Object.assign(userObject, result)
+          userManager.refineUserData(userObject, () => {
+            resolve(userObject)
+          })
         })
-      })
-      .catch(error => reject(error))
+        .catch(error => reject(error))
     })
   }
 
@@ -58,7 +58,7 @@ class UserManager {
       smartContractMethod: 'getObjectData',
       smartContractMethodParams: (coinbase) => {
         userId = userId || coinbase
-        return [userObject.recordFields || userManager.userRecordFields(state, userId), userObject.recordFieldTypes || userManager.userRecordFieldTypes(), {from: coinbase}]
+        return [userObject.recordFields || userManager.userRecordFields(state, userId), userObject.recordFieldTypes || userManager.userRecordFieldTypes(), { from: coinbase }]
       },
       state,
       smartContractResolve: result => {
@@ -79,10 +79,10 @@ class UserManager {
       email: userObject.email,
       coinbase: userObject.coinbase
     })
-    .then((avatarCanvas) => {
-      userObject.avatarCanvas = avatarCanvas
-      if (callback) callback(userObject)
-    })
+      .then((avatarCanvas) => {
+        userObject.avatarCanvas = avatarCanvas
+        if (callback) callback(userObject)
+      })
   }
 
   defaultUserObject () {

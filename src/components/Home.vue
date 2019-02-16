@@ -12,27 +12,32 @@
 </template>
 
 <script>
-  export default {
-    name: 'home',
-    props: ['currentView'],
-    methods: {
-      logUserIn (evt) {
-        this.$emit('log-user-in', evt)
-      },
-      logUserOut (evt) {
-        this.$emit('log-user-out', evt)
-      }
+export default {
+  name: 'Home',
+  components: {
+    HeaderTemplate,
+    BodyTemplate,
+    FooterTemplate
+  },
+  props: {
+    currentView: {
+      type: Object,
+      default: null
+    }
+  },
+  methods: {
+    logUserIn (evt) {
+      this.$emit('log-user-in', evt)
     },
-    components: {
-      HeaderTemplate,
-      BodyTemplate,
-      FooterTemplate
+    logUserOut (evt) {
+      this.$emit('log-user-out', evt)
     }
   }
+}
 
-  import HeaderTemplate from './layout/HeaderTemplate'
-  import BodyTemplate from './layout/BodyTemplate'
-  import FooterTemplate from './layout/FooterTemplate'
+import HeaderTemplate from './layout/HeaderTemplate'
+import BodyTemplate from './layout/BodyTemplate'
+import FooterTemplate from './layout/FooterTemplate'
 </script>
 
 <style scoped>

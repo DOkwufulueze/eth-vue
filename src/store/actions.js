@@ -5,29 +5,30 @@ export default {
   [ACTION_TYPES.REGISTER_WEB3_INSTANCE] ({ state, commit }) {
     return new Promise(function (resolve, reject) {
       getWeb3
-      .then((result) => {
-        commit(MUTATION_TYPES.REGISTER_WEB3_INSTANCE, {
-          result,
-          callback: (state) => {
-            resolve({ state })
-          }
-        })
-      })
-      .catch((error) => {
-        if (!(state && state.web3 && state.web3.instance)) {
-          const result = error.result
+        .then((result) => {
           commit(MUTATION_TYPES.REGISTER_WEB3_INSTANCE, {
-            result: {
-              web3: (result && result.hasInjectedWeb3 ? result.web3 : null),
-              hasInjectedWeb3: (result && result.hasInjectedWeb3 ? result.hasInjectedWeb3 : false),
-              web3Error: error.error
-            },
+            result,
             callback: (state) => {
-              reject({ state, error })
+              resolve({ state })
             }
           })
-        }
-      })
+        })
+        .catch((error) => {
+          if (!(state && state.web3 && state.web3.instance)) {
+            const result = error.result
+            commit(MUTATION_TYPES.REGISTER_WEB3_INSTANCE, {
+              result: {
+                web3: (result && result.hasInjectedWeb3 ? result.web3 : null),
+                hasInjectedWeb3: (result && result.hasInjectedWeb3 ? result.hasInjectedWeb3 : false),
+                web3Error: error.error
+              },
+              callback: (state) => {
+                /* eslint-disable-next-line */
+                reject({ state, error })
+              }
+            })
+          }
+        })
     })
   },
   [ACTION_TYPES.SET_CURRENT_VIEW] ({ commit }, newRoute) {
@@ -70,6 +71,7 @@ export default {
       commit(MUTATION_TYPES.LOGIN, {
         userObject: payload.userObject,
         callback: (status) => {
+          /* eslint-disable-next-line */
           status ? resolve() : reject()
         }
       })

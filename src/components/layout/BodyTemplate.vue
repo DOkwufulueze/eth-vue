@@ -1,15 +1,20 @@
 <template>
-  <component class="body-template"
+  <component
     :is="currentView"
-  >
-  </component>
+    class="body-template"
+  />
 </template>
 
 <script>
-  export default {
-    name: 'body-template',
-    props: ['currentView']
-  }
+export default {
+  name: 'BodyTemplate',
+  props: {
+    currentView: {
+      type: Object,
+      default: null
+    }
+  },
+}
 </script>
 
 <style scoped>

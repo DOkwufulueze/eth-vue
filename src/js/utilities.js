@@ -1,4 +1,4 @@
-import {chunkArray} from '../util/ArrayManager'
+import { chunkArray } from '../util/ArrayManager'
 import ethereumBlockies from 'ethereum-blockies'
 import { avatarCanvasElement } from '../util/DOMManipulator'
 import { IDENTICON_COLORS } from '../util/constants'
@@ -98,9 +98,9 @@ export function getGravatarFor (payload = {}) {
 
 export function getGravatarFromEmail (payload = {}, resolve, reject) {
   avatarCanvasElement(payload.email)
-  .then((avatarCanvas, gravatar) => {
-    resolve(avatarCanvas)
-  })
+    .then((avatarCanvas, gravatar) => {
+      resolve(avatarCanvas)
+    })
 }
 
 export function getGravatarFromCoinbase (payload = {}, resolve, reject) {

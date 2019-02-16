@@ -66,12 +66,12 @@ function updateUserGravatar (state, userCopy, payload = null) {
 
 function setGravatarFromEmail (state, userCopy, payload = null) {
   avatarCanvasElement(payload.email)
-  .then((avatarCanvas, gravatar) => {
-    assignPropertyTo(userCopy, 'gravatar', gravatar)
-    assignPropertyTo(userCopy, 'avatarCanvas', avatarCanvas)
-    state.user = userCopy
-    if (payload.callback) payload.callback(avatarCanvas)
-  })
+    .then((avatarCanvas, gravatar) => {
+      assignPropertyTo(userCopy, 'gravatar', gravatar)
+      assignPropertyTo(userCopy, 'avatarCanvas', avatarCanvas)
+      state.user = userCopy
+      if (payload.callback) payload.callback(avatarCanvas)
+    })
 }
 
 function prepareGravatarFromCoinbase (state, userCopy, payload = null) {
@@ -139,7 +139,7 @@ export default {
       resetUser(state, web3Status)
     }
 
-    if (payload.callback) payload.callback({status: !warningMessage, warningMessage})
+    if (payload.callback) payload.callback({ status: !warningMessage, warningMessage })
   },
   [MUTATION_TYPES.UPDATE_WEB3_PROPERTIES] (state, payload) {
     for (var i = payload.properties.length - 1; i >= 0; i--) {
@@ -185,11 +185,11 @@ export default {
     })
 
     getUserBalance(state)
-    .then((balance) => {
-      userCopy.balance = balance
-      state.user = userCopy
-      if (payload.callback) payload.callback(true)
-    })
+      .then((balance) => {
+        userCopy.balance = balance
+        state.user = userCopy
+        if (payload.callback) payload.callback(true)
+      })
   },
   [MUTATION_TYPES.LOGOUT] (state, payload) {
     const hasWeb3InjectedBrowser = state.web3.isInjected
