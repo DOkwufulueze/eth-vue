@@ -1,60 +1,43 @@
-var contract = require('truffle-contract');
-var DBConfigObject = require('../build/contracts/DB.json');
+const contract = require('truffle-contract');
+const DBConfigObject = require('../build/contracts/DB.json');
 
-var Setup = artifacts.require("./Setup.sol");
-var UserAuthManager = artifacts.require("./UserAuthManager.sol");
+const Setup = artifacts.require("./Setup.sol");
+const UserAuthManager = artifacts.require("./UserAuthManager.sol");
 
-var DBContract = contract(DBConfigObject);
+const DBContract = contract(DBConfigObject);
 DBContract.setProvider(web3.currentProvider);
 
-var dbAddress = DBContract.deployed()
-.then(function (instance) {
-  return instance.address;
-})
-.catch(function (error) {
-  console.log(':::::::Unable to get deployed DB')
-});
+if (typeof DBContract.currentProvider.sendAsync !== "function") {
+  DBContract.currentProvider.sendAsync = function() {
+    return DBContract.currentProvider.send.apply(
+      DBContract.currentProvider, arguments
+    );
+  };
+}
 
 // Deploy eth-vue Smart Contracts using the DB Contract address
-module.exports = function (deployer) {
-  deployer.deploy(Setup, dbAddress).then(function () {
-    dbAddress.then(function (value) {
-      var setupAddress = Setup.address;
+module.exports = async (deployer) => {
+  try {
+    const deployedDBContract = await DBContract.deployed();
+    const dbAddress = deployedDBContract.address;
+    const coinbase = await web3.eth.getCoinbase();
+    let response;
 
-      DBContract.at(value).addPermittedContract(setupAddress, { from: web3.eth.coinbase })
-      .then(function (res) {
-        console.log(res);
-        Setup.at(setupAddress).setConfig()
-        .then(function (setupRes) {
-          console.log(setupRes);
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-    })
-    .catch(function (error) {
-      console.log(':::::::Unable to get deployed DB address')
-    });
-  });
+    // Deploy Setup Smart Contract
+    await deployer.deploy(Setup, dbAddress);
+    const setupAddress = await Setup.address;
+    response = await deployedDBContract.addPermittedContract(setupAddress, { from: coinbase });
+    console.log(`Add Setup Smart Contract to Permitted contracts list: ${response}`);
+    const deployedSetup = await Setup.deployed();
+    const setupResponse =  await deployedSetup.setConfig();
+    console.log(setupResponse);
 
-  deployer.deploy(UserAuthManager, dbAddress).then(function () {
-    dbAddress.then(function (value) {
-      var userAuthManagerAddress = UserAuthManager.address;
-
-      DBContract.at(value).addPermittedContract(userAuthManagerAddress, { from: web3.eth.coinbase })
-      .then(function (res) {
-        console.log(res);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-    })
-    .catch(function (error) {
-      console.log(':::::::Unable to get deployed DB address')
-    });
-  });
+    // Deploy UserAuthManager Smart Contract
+    await deployer.deploy(UserAuthManager, dbAddress);
+    const userAuthManagerAddress = await UserAuthManager.address;
+    response = await deployedDBContract.addPermittedContract(userAuthManagerAddress, { from: coinbase });
+    console.log(`Add UserAuthManager Smart Contract to Permitted contracts list: ${response}`);
+  } catch (error) {
+    console.error(error);
+  }
 };
