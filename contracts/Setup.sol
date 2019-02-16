@@ -1,4 +1,4 @@
-pragma solidity 0.4.18;
+pragma solidity 0.5.0;
 
 import "./DB.sol";
 
@@ -8,8 +8,8 @@ import "./DB.sol";
 contract Setup is Destructible {
   address public dbAddress;
 
-  function Setup (address _dbAddress) public {
-    require(_dbAddress != 0x0);
+  constructor (address _dbAddress) public {
+    require(_dbAddress != address(0x0));
     dbAddress = _dbAddress;
   }
 

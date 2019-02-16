@@ -1,4 +1,4 @@
-pragma solidity 0.4.18;
+pragma solidity 0.5.0;
 
 import './zeppelin/lifecycle/Destructible.sol';
 import "./zeppelin/math/SafeMath.sol";
@@ -21,13 +21,11 @@ contract DB is Destructible {
   mapping(bytes32 => string) StringDataStore;
 
   modifier onlyPermittedContractOrOwner {
-    require(permissionStatusForContract[msg.sender] || msg.sender == owner);
+    require(permissionStatusForContract[msg.sender] || msg.sender == owner());
     _;
   }
 
-  function DB () public {
-
-  }
+  constructor () public { }
 
   // AddressDataStore
   function getAddressValue (bytes32 recordFieldName) public view returns (address) {
@@ -64,11 +62,11 @@ contract DB is Destructible {
   }
 
   // BytesDataStore
-  function getBytesValue (bytes32 recordFieldName) public view returns (bytes) {
+  function getBytesValue (bytes32 recordFieldName) public view returns (bytes memory) {
     return BytesDataStore[recordFieldName];
   }
 
-  function setBytesValue (bytes32 recordFieldName, bytes value) external
+  function setBytesValue (bytes32 recordFieldName, bytes calldata value) external
     onlyPermittedContractOrOwner
   {
     BytesDataStore[recordFieldName] = value;
@@ -161,11 +159,11 @@ contract DB is Destructible {
   }
 
   // StringDataStore
-  function getStringValue (bytes32 recordFieldName) public view returns (string) {
+  function getStringValue (bytes32 recordFieldName) public view returns (string memory) {
     return StringDataStore[recordFieldName];
   }
 
-  function setStringValue (bytes32 recordFieldName, string value) external
+  function setStringValue (bytes32 recordFieldName, string calldata value) external
     onlyPermittedContractOrOwner
   {
     StringDataStore[recordFieldName] = "^".toSlice().concat(value.toSlice());
@@ -185,7 +183,7 @@ contract DB is Destructible {
     permittedContractsAddresses.push(contractAddress);
   }
 
-  function addPermittedContracts (address[] addresses) external
+  function addPermittedContracts (address[] calldata addresses) external
   onlyOwner {
     for (uint i = 0; i < addresses.length; i++) {
       permissionStatusForContract[addresses[i]] = true;
@@ -198,7 +196,7 @@ contract DB is Destructible {
     permissionStatusForContract[addresses] = false;
   }
 
-  function removePermittedContracts (address[] addresses) external
+  function removePermittedContracts (address[] calldata addresses) external
   onlyOwner {
     for (uint i = 0; i < addresses.length; i++) {
       permissionStatusForContract[addresses[i]] = false;
@@ -215,7 +213,7 @@ contract DB is Destructible {
     return count;
   }
 
-  function getPermittedContracts () external constant returns (address[] addresses) {
+  function getPermittedContracts () external view returns (address[] memory addresses) {
     addresses = new address[](permittedContractsCount());
     for (uint i = 0; i < permittedContractsAddresses.length; i++) {
       if (permissionStatusForContract[permittedContractsAddresses[i]]) {
@@ -227,11 +225,11 @@ contract DB is Destructible {
   }
 
   // Fetch Data
-  function getObjectData (bytes32[] recordFieldNames, uint8[] recordFieldTypes)
+  function getObjectData (bytes32[] calldata recordFieldNames, uint8[] calldata recordFieldTypes)
     external view returns
   (
-    uint[] items,
-    string strings
+    uint[] memory items,
+    string memory strings
   )
   {
     uint countOfIntegerTypes = getCountOfIntegerTypes(recordFieldTypes);
@@ -272,7 +270,7 @@ contract DB is Destructible {
     return (items, strings);
   }
 
-  function getCountOfIntegerTypes (uint8[] recordFieldTypes) public pure returns (uint count) {
+  function getCountOfIntegerTypes (uint8[] memory recordFieldTypes) public pure returns (uint count) {
     count = 0;
     for (uint i = 0; i < recordFieldTypes.length ; i++) {
       if (recordFieldTypes[i] != 7) { // recordFieldType 7 is for strings
@@ -292,7 +290,7 @@ contract DB is Destructible {
     } else if (uintType == 3) {
       return getUIntValue(recordFieldName);
     } else if (uintType == 4) {
-      return uint(bytes32(getAddressValue(recordFieldName)));
+      return uint(getAddressValue(recordFieldName));
     } else if (uintType == 5) {
       return uint(getBytes32Value(recordFieldName));
     } else {

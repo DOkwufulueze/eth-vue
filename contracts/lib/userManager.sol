@@ -1,4 +1,4 @@
-pragma solidity 0.4.18;
+pragma solidity 0.5.0;
 
 import "./utilities.sol";
 
@@ -6,11 +6,11 @@ library userManager {
   using strings for *;
 
   function setStatus (address dbAddress, address userId, uint8 status) internal {
-    DB(dbAddress).setUInt8Value(keccak256("user/status", userId), status);
+    DB(dbAddress).setUInt8Value(keccak256(abi.encodePacked("user/status", userId)), status);
   }
 
   function getUsersCount (address dbAddress) internal view returns (uint) {
-    return DB(dbAddress).getUIntValue(keccak256("users/count"));
+    return DB(dbAddress).getUIntValue(keccak256(abi.encodePacked("users/count")));
   }
 
   function isUserExists (address dbAddress, address userId) internal view returns (bool) {
@@ -18,22 +18,22 @@ library userManager {
   }
 
   function getStatus (address dbAddress, address userId) internal view returns (uint8) {
-    return DB(dbAddress).getUInt8Value(keccak256("user/status", userId));
+    return DB(dbAddress).getUInt8Value(keccak256(abi.encodePacked("user/status", userId)));
   }
 
   function setUser (
     address dbAddress,
     address userId,
-    string firstName,
-    string lastName,
-    string email,
+    string memory firstName,
+    string memory lastName,
+    string memory email,
     bytes32 gravatar
   )
     internal
   {
-    var firstNameLength = firstName.toSlice().len();
-    var lastNameLength = lastName.toSlice().len();
-    var emailLength = email.toSlice().len();
+    uint firstNameLength = firstName.toSlice().len();
+    uint lastNameLength = lastName.toSlice().len();
+    uint emailLength = email.toSlice().len();
     uint maxUserNameLength = utilities.getConfig(dbAddress, "config/max-user-name-length");
     uint minUserNameLength = utilities.getConfig(dbAddress, "config/min-user-name-length");
     uint maxEmailLength = utilities.getConfig(dbAddress, "config/max-user-email-length");
@@ -44,10 +44,10 @@ library userManager {
     require(emailLength <= maxEmailLength && emailLength >= minEmailLength);
 
     checkUserAndInitIfNecessary(dbAddress, userId);
-    DB(dbAddress).setStringValue(keccak256("user/first-name", userId), firstName);
-    DB(dbAddress).setStringValue(keccak256("user/last-name", userId), lastName);
-    DB(dbAddress).setStringValue(keccak256("user/email", userId), email);
-    DB(dbAddress).setBytes32Value(keccak256("user/gravatar", userId), gravatar);
+    DB(dbAddress).setStringValue(keccak256(abi.encodePacked("user/first-name", userId)), firstName);
+    DB(dbAddress).setStringValue(keccak256(abi.encodePacked("user/last-name", userId)), lastName);
+    DB(dbAddress).setStringValue(keccak256(abi.encodePacked("user/email", userId)), email);
+    DB(dbAddress).setBytes32Value(keccak256(abi.encodePacked("user/gravatar", userId)), gravatar);
   }
 
   function checkUserAndInitIfNecessary (
@@ -57,8 +57,8 @@ library userManager {
     internal
   {
     if (!isUserExists(dbAddress, userId)) {
-      DB(dbAddress).setUIntValue(keccak256("user/created-on", userId), now);
-      DB(dbAddress).setUInt8Value(keccak256("user/status", userId), 1);
+      DB(dbAddress).setUIntValue(keccak256(abi.encodePacked("user/created-on", userId)), now);
+      DB(dbAddress).setUInt8Value(keccak256(abi.encodePacked("user/status", userId)), 1);
       utilities.addArrayItem(dbAddress, "users/ids", "users/count", userId);
     }
   }

@@ -1,4 +1,4 @@
-pragma solidity 0.4.18;
+pragma solidity 0.5.0;
 
 import './lib/userManager.sol';
 
@@ -6,8 +6,8 @@ contract UserAuthManager is Destructible {
   address public dbAddress;
   event SetUser(address indexed _userAddress, bool isSetUp);
 
-  function UserAuthManager (address _dbAddress) public {
-    require(_dbAddress != 0x0);
+  constructor (address _dbAddress) public {
+    require(_dbAddress != address(0x0));
     dbAddress = _dbAddress;
   }
 
@@ -20,15 +20,15 @@ contract UserAuthManager is Destructible {
   }
 
   function setUser (
-    string firstName,
-    string lastName,
-    string email,
+    string calldata firstName,
+    string calldata lastName,
+    string calldata email,
     bytes32 gravatar
   )
     external
     payable
   {
     userManager.setUser(dbAddress, msg.sender, firstName, lastName, email, gravatar);
-    SetUser(msg.sender, true);
+    emit SetUser(msg.sender, true);
   }
 }
