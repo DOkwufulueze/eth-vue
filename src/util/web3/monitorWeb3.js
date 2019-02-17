@@ -19,22 +19,16 @@ const monitorWeb3 = function (state) {
   }
 
   if (web3) {
-    web3.eth.filter('latest', function (error, result) {
+    web3.eth.subscribe('newBlockHeaders', function (error, result) {
       if (!error) {
         // console.log(result)
       }
-    })
-
-    web3.eth.filter('pending', function (error, result) {
-      if (!error) {
-        // console.log(result)
-      }
-    })
+    });
   }
 
   setInterval(() => {
     if (web3 && !isLocalWeb3) {
-      web3.version.getNetwork((err, newNetworkId) => {
+      web3.eth.net.getId((err, newNetworkId) => {
         newNetworkId = !err && newNetworkId ? newNetworkId.toString() : ''
         if ((!err && newNetworkId && newNetworkId !== '' && newNetworkId !== networkId) || (!newNetworkId && networkId)) {
           store.dispatch(ACTION_TYPES.LOGOUT)

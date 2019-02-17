@@ -128,10 +128,13 @@ new Vue({
             .then(() => {
               if (payload.callback) payload.callback(userData)
             })
+            .catch(error => {
+              console.error('Unable to perform login action: ' + error)
+            });
         })
-        .catch((err) => {
+        .catch((error) => {
           if (payload.callback) payload.callback()
-          console.error(err, 'Unable to write user data')
+          console.error('Unable to write user data: ' + error)
         })
     },
     callSetIsValidUserBut (newValue) {

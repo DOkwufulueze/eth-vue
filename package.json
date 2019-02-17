@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@babel/runtime": "7.0.0-beta.55",
+    "ajv": "^6.9.1",
     "bip39": "^2.4.0",
     "eslint-plugin-node": "^8.0.1",
     "ethereum-blockies": "^0.1.1",
@@ -26,7 +27,8 @@
     "vue-router": "^3.0.2",
     "vuex": "^3.1.0",
     "vuex-persist": "^2.0.0",
-    "web3": "0.20.3",
+    "web3": "^1.0.0-beta.35",
+    "web3-net": "^1.0.0-beta.46",
     "web3-provider-engine": "^13.3.2"
   },
   "devDependencies": {
