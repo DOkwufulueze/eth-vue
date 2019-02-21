@@ -15,6 +15,10 @@ if (typeof DBContract.currentProvider.sendAsync !== "function") {
   };
 }
 
+function isSuccessfulTransaction (response) {
+  return !!(response && response.receipt && response.receipt.transactionHash)
+}
+
 // Deploy eth-vue Smart Contracts using the DB Contract address
 module.exports = async (deployer) => {
   try {
@@ -27,7 +31,7 @@ module.exports = async (deployer) => {
     await deployer.deploy(Setup, dbAddress);
     const setupAddress = await Setup.address;
     response = await deployedDBContract.addPermittedContract(setupAddress, { from: coinbase });
-    console.log('Added Setup Smart Contract to Permitted contracts list: ', response);
+    console.log('Added Setup Smart Contract to Permitted contracts list: ', isSuccessfulTransaction(response));
     const deployedSetup = await Setup.deployed();
     const setupResponse =  await deployedSetup.setConfig();
     console.log(setupResponse);
@@ -36,7 +40,7 @@ module.exports = async (deployer) => {
     await deployer.deploy(UserAuthManager, dbAddress);
     const userAuthManagerAddress = await UserAuthManager.address;
     response = await deployedDBContract.addPermittedContract(userAuthManagerAddress, { from: coinbase });
-    console.log('Added UserAuthManager Smart Contract to Permitted contracts list: ', response);
+    console.log('Added UserAuthManager Smart Contract to Permitted contracts list: ', isSuccessfulTransaction(response));
   } catch (error) {
     console.error(error);
   }
