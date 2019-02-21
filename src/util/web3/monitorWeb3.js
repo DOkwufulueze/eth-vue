@@ -36,7 +36,8 @@ const monitorWeb3 = function (state) {
         } else {
           web3.eth.getCoinbase((err, newCoinbase) => {
             newCoinbase = !err && newCoinbase ? newCoinbase.toString() : ''
-            if ((!err && newCoinbase && newCoinbase !== '' && newCoinbase !== coinbase && newNetworkId === APPROVED_NETWORK_ID) || (!newCoinbase && coinbase)) {
+            const approvedNetworkId = APPROVED_NETWORK_ID || newNetworkId
+            if ((!err && newCoinbase && newCoinbase !== '' && newCoinbase !== coinbase && approvedNetworkId && newNetworkId === approvedNetworkId) || (!newCoinbase && coinbase)) {
               store.dispatch(ACTION_TYPES.LOGOUT)
               window.location.reload()
             } else if (!err && newCoinbase && newCoinbase !== '' && newCoinbase !== coinbase) {

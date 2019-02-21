@@ -9,7 +9,7 @@ export const NETWORKS = {
   '666': 'Daniel Private Blockchain' // This is a test private blockchain. You can change it to your own private blockchain if you have one.
 }
 
-export const APPROVED_NETWORK_ID = '3'
+export const APPROVED_NETWORK_ID = undefined // Default is undefined. Set as you choose
 
 export const MUTATION_TYPES = {
   CHANGE_CURRENT_ROUTE_TO: 'changeCurrentRouteTo',

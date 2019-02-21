@@ -41,7 +41,8 @@ class BlockchainManager {
         /* eslint-disable-next-line */
         reject({ error: true, warningMessage: 'Web3 is not initialised. Use a Web3 injector' })
       } else {
-        if (state.web3.networkId === APPROVED_NETWORK_ID) {
+        const approvedNetworkId = APPROVED_NETWORK_ID || state.web3.networkId
+        if (state.web3.networkId === approvedNetworkId) {
           const contractToUse = dataObject.contractToUse
           let ethVueContract = contract(contractToUse)
           ethVueContract.setProvider(state.web3.instance().currentProvider)

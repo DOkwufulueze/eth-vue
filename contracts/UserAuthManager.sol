@@ -11,14 +11,6 @@ contract UserAuthManager is Destructible {
     dbAddress = _dbAddress;
   }
 
-  function login ()
-    external
-    view
-    returns (bool)
-  {
-    return userManager.login(dbAddress, msg.sender);
-  }
-
   function setUser (
     string calldata firstName,
     string calldata lastName,
@@ -26,9 +18,16 @@ contract UserAuthManager is Destructible {
     bytes32 gravatar
   )
     external
-    payable
   {
     userManager.setUser(dbAddress, msg.sender, firstName, lastName, email, gravatar);
     emit SetUser(msg.sender, true);
+  }
+
+  function login ()
+    external
+    view
+    returns (bool)
+  {
+    return userManager.login(dbAddress, msg.sender);
   }
 }

@@ -27,7 +27,7 @@ module.exports = async (deployer) => {
     await deployer.deploy(Setup, dbAddress);
     const setupAddress = await Setup.address;
     response = await deployedDBContract.addPermittedContract(setupAddress, { from: coinbase });
-    console.log(`Add Setup Smart Contract to Permitted contracts list: ${response}`);
+    console.log('Added Setup Smart Contract to Permitted contracts list: ', response);
     const deployedSetup = await Setup.deployed();
     const setupResponse =  await deployedSetup.setConfig();
     console.log(setupResponse);
@@ -36,7 +36,7 @@ module.exports = async (deployer) => {
     await deployer.deploy(UserAuthManager, dbAddress);
     const userAuthManagerAddress = await UserAuthManager.address;
     response = await deployedDBContract.addPermittedContract(userAuthManagerAddress, { from: coinbase });
-    console.log(`Add UserAuthManager Smart Contract to Permitted contracts list: ${response}`);
+    console.log('Added UserAuthManager Smart Contract to Permitted contracts list: ', response);
   } catch (error) {
     console.error(error);
   }

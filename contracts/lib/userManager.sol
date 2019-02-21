@@ -70,5 +70,4 @@ library userManager {
       return false;
     }
   }
-
 }

@@ -43,13 +43,17 @@ export default {
   name: 'Web3Message',
   data: function () {
     return {
-      approvedNetworkName: NETWORKS[APPROVED_NETWORK_ID],
       user: this.$store.state.user
     }
   },
   computed: {
     coinbase () {
       return this.user.coinbase
+    },
+    approvedNetworkName () {
+      const networkId = this.$store.state.web3.networkId
+      const approvedNetworkId = APPROVED_NETWORK_ID || networkId
+      return NETWORKS[approvedNetworkId]
     }
   },
   methods: {

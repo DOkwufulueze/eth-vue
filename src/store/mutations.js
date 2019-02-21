@@ -110,7 +110,8 @@ export default {
     const hasWeb3InjectedBrowser = state.web3.isInjected
     const hasCoinbase = !!(state.web3.coinbase && state.web3.coinbase !== '')
     const coinbase = state.web3.coinbase
-    const isConnectedToApprovedNetwork = !!(state.web3.networkId && state.web3.networkId !== '' && state.web3.networkId === APPROVED_NETWORK_ID)
+    const approvedNetworkId = APPROVED_NETWORK_ID || state.web3.networkId
+    const isConnectedToApprovedNetwork = !!(state.web3.networkId && state.web3.networkId !== '' && state.web3.networkId === approvedNetworkId)
     const web3Status = {
       hasWeb3InjectedBrowser,
       hasCoinbase,
@@ -122,7 +123,7 @@ export default {
     if (hasWeb3InjectedBrowser) {
       if (hasCoinbase) {
         if (!isConnectedToApprovedNetwork) {
-          warningMessage = `You're not on the same Blockchain as us. Please connect to the ${NETWORKS[APPROVED_NETWORK_ID]}`
+          warningMessage = `You're not on the same Blockchain as us. Please connect to the ${NETWORKS[approvedNetworkId]}`
         }
       } else {
         warningMessage = "Looks like you haven't logged into your Web3 injector. If you're using Metamask and you'd signed up, please log into Metamask, else click on the 'Sign Up' link above to begin."
@@ -195,7 +196,8 @@ export default {
     const hasWeb3InjectedBrowser = state.web3.isInjected
     const hasCoinbase = !!(state.web3.coinbase && state.web3.coinbase !== '')
     const coinbase = state.web3.coinbase
-    const isConnectedToApprovedNetwork = !!(state.web3.networkId && state.web3.networkId !== '' && state.web3.networkId === APPROVED_NETWORK_ID)
+    const approvedNetworkId = APPROVED_NETWORK_ID || state.web3.networkId
+    const isConnectedToApprovedNetwork = !!(state.web3.networkId && state.web3.networkId !== '' && state.web3.networkId === approvedNetworkId)
     const web3Status = {
       hasWeb3InjectedBrowser,
       hasCoinbase,
