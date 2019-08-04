@@ -38,6 +38,13 @@ module.exports = {
       network_id: "*", // Match any network id. You may need to replace * with your network Id
       from: "", // Add your unlocked account within the double quotes
       gas: 4444444
+    },
+    ganache: {
+      host: "127.0.0.1",
+      port: 7545,
+      network_id: 5777,
+      from: "",  // Findable under Ganache -> Addresses. Auth with Metamask and private key
+      gas: 4444444
     }
-  }
+  },
 };
