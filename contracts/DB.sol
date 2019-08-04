@@ -1,4 +1,4 @@
-pragma solidity 0.5.0;
+pragma solidity ^0.5.0;
 
 import './zeppelin/lifecycle/Destructible.sol';
 import "./zeppelin/math/SafeMath.sol";
