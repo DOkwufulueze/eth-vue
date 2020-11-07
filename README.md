@@ -16,10 +16,12 @@ Simply unbox and start building your own dApp.
 ## Installation
 - Install Truffle
 
-        npm install -g truffle
+        yarn global add truffle
+
 <br>
 
-###### NOTE: If unboxing DOkwufulueze/eth-vue had failed previously due to absence of node-gyp, simply run `npm install --global node-gyp`. Or if it failed due to a problem with an existing node-gyp, run `node-gyp rebuild`. Else ignore this note and move on to the next instruction.
+###### NOTE: If unboxing DOkwufulueze/eth-vue had failed previously due to absence of node-gyp, simply run `yarn global add node-gyp`. Or if it failed due to a problem with an existing node-gyp, run `node-gyp rebuild`. Else ignore this note and move on to the next instruction
+
 <br>
 
 - Enter your development directory [eg. cd into a newly created `eth-vue` directory] and unbox `DOkwufulueze/eth-vue`
@@ -28,6 +30,7 @@ Simply unbox and start building your own dApp.
     Or clone this repository from GitHub and `cd` into the `eth-vue` directory:
 
         git clone https://github.com/DOkwufulueze/eth-vue.git
+
 <br>
 
 - Configure your environment
@@ -71,11 +74,11 @@ Simply unbox and start building your own dApp.
     For Truffle develop network, point your Ethereum provider [Metamask, for example] to a Custom RPC running on port 9545.
 <br>
 
-- Install npm dependencies if necessary.
+- Install dependencies if necessary.
 
-     ###### NOTE: If you unboxed this boilerplate from Truffle [`truffle unbox DOkwufulueze/eth-vue`], then running `npm install` is not necessary since unboxing runs `npm install` by default. But if you cloned this boilerplate from GitHub [`git clone https://github.com/DOkwufulueze/eth-vue.git`], please run `npm install` as stated below.
+     ###### NOTE: If you unboxed this boilerplate from Truffle [`truffle unbox DOkwufulueze/eth-vue`], then running `yarn install` is not necessary since unboxing installs dependencies by default. But if you cloned this boilerplate from GitHub [`git clone https://github.com/DOkwufulueze/eth-vue.git`], please run `yarn install` as stated below
 
-        npm install
+        yarn install
 <br>
 
 ## Compilation and Migration
@@ -127,7 +130,7 @@ The default port for `truffle develop` is 9545, so it doesn't conflict with any 
 ## Launch the dApp
 - Start the server
 
-        npm run start
+        yarn start
 <br>
 
 - Open your browser and enter the following:

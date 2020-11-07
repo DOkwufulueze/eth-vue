@@ -1,115 +1,86 @@
 {
   "name": "eth-vue",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "description": "A vue boilerplate for Ethereum dApps, built on Truffle 4. Uses vuex for state management, vuex-persist for local storage of app state, and vue-router for routing. Authentication functionalities are handled by Smart Contracts running on the Ethereum blockchain.",
-  "private": false,
-  "scripts": {
-    "dev": "node build/dev-server.js",
-    "start": "node build/dev-server.js",
-    "build": "node build/build.js",
-    "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
-    "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e",
-    "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
-  },
-  "dependencies": {
-    "@babel/runtime": "7.0.0-beta.55",
-    "ajv": "^6.9.1",
-    "bip39": "^2.4.0",
-    "eslint-plugin-node": "^8.0.1",
-    "ethereum-blockies": "^0.1.1",
-    "ethereumjs-wallet": "^0.6.0",
-    "gravatar-api": "^1.5.0",
-    "solidity-sha3": "^0.4.1",
-    "truffle-contract": "^4.0.6",
-    "truffle-hdwallet-provider": "1.0.4",
-    "vue": "^2.5.3",
-    "vue-router": "^3.0.2",
-    "vuex": "^3.1.0",
-    "vuex-persist": "^2.0.0",
-    "web3-provider-engine": "^13.3.2",
-    "web3": "^1.2.7"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.3.3",
-    "@babel/plugin-transform-runtime": "^7.2.0",
-    "@babel/preset-env": "^7.3.1",
-    "@babel/register": "^7.0.0",
-    "autoprefixer": "^9.4.7",
-    "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.5",
-    "babel-plugin-istanbul": "^5.1.0",
-    "chai": "^4.2.0",
-    "chalk": "^2.3.0",
-    "chromedriver": "^2.33.2",
-    "connect-history-api-fallback": "^1.4.0",
-    "copy-webpack-plugin": "^4.2.0",
-    "cross-env": "^5.1.1",
-    "cross-spawn": "^6.0.5",
-    "css-loader": "^2.1.0",
-    "cssnano": "^4.1.10",
-    "eslint": "^5.14.0",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-friendly-formatter": "^4.0.1",
-    "eslint-loader": "^2.1.2",
-    "eslint-plugin-html": "^5.0.3",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-vue": "^5.2.1",
-    "eventsource-polyfill": "^0.9.6",
-    "express": "^4.16.2",
-    "extract-text-webpack-plugin": "4.0.0-alpha.0",
-    "file-loader": "^3.0.1",
-    "friendly-errors-webpack-plugin": "^1.6.1",
-    "html-webpack-plugin": "^3.2.0",
-    "http-proxy-middleware": "^0.19.1",
-    "inject-loader": "^4.0.1",
-    "karma": "^4.0.0",
-    "karma-coverage": "^1.1.1",
-    "karma-mocha": "^1.3.0",
-    "karma-phantomjs-launcher": "^1.0.4",
-    "karma-phantomjs-shim": "^1.5.0",
-    "karma-sinon-chai": "^2.0.2",
-    "karma-sourcemap-loader": "^0.3.7",
-    "karma-spec-reporter": "0.0.32",
-    "karma-webpack": "^4.0.0-rc.6",
-    "mocha": "^5.2.0",
-    "nightwatch": "^1.0.19",
-    "opn": "^5.1.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "ora": "^3.1.0",
-    "phantomjs-prebuilt": "^2.1.16",
-    "rimraf": "^2.6.2",
-    "selenium-server": "^3.7.0",
-    "semver": "^5.4.1",
-    "shelljs": "^0.8.3",
-    "sinon": "^7.2.3",
-    "sinon-chai": "^3.3.0",
-    "url-loader": "^1.1.2",
-    "vue-eslint-parser": "^6.0.2",
-    "vue-loader": "^15.6.2",
-    "vue-style-loader": "^4.1.2",
-    "vue-template-compiler": "^2.5.3",
-    "webpack": "^4.29.4",
-    "webpack-bundle-analyzer": "^3.0.4",
-    "webpack-dev-middleware": "^3.5.2",
-    "webpack-hot-middleware": "^2.20.0",
-    "webpack-merge": "^4.1.1"
-  },
-  "engines": {
-    "node": ">= 4.0.0",
-    "npm": ">= 3.0.0"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
+  "main": "index.js",
+  "author": "Daniel Okwufulueze <danielokwufulueze@gmail.com>",
+  "contributors": [
+    "Aaron Paz <hi@aaronpaz.dev>",
+    "Daniel Okwufulueze <danielokwufulueze@gmail.com>",
+    "Josh Quintal <josh@trufflesuite.com>"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DOkwufulueze/eth-vue.git"
   },
+  "license": "GPL-3.0",
+  "private": false,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "test:e2e": "vue-cli-service test:e2e",
+    "lint": "vue-cli-service lint",
+    "lint:fix": "vue-cli-service lint --fix"
+  },
+  "dependencies": {
+    "@truffle/contract": "4.2.29",
+    "@truffle/hdwallet-provider": "1.2.0",
+    "bip39": "3.0.2",
+    "core-js": "3.6.5",
+    "ethereum-blockies": "0.1.1",
+    "ethereumjs-wallet": "1.0.1",
+    "gravatar-api": "1.5.0",
+    "register-service-worker": "1.7.1",
+    "solidity-sha3": "0.4.1",
+    "vue": "3.0.0",
+    "vue-router": "^4.0.0-0",
+    "vuex": "^4.0.0-0",
+    "vuex-persist": "3.1.3",
+    "web3-provider-engine": "16.0.1",
+    "web3": "^1.2.7"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "4.5.0",
+    "@vue/cli-plugin-e2e-cypress": "4.5.0",
+    "@vue/cli-plugin-eslint": "4.5.0",
+    "@vue/cli-plugin-pwa": "4.5.0",
+    "@vue/cli-plugin-router": "4.5.0",
+    "@vue/cli-plugin-unit-jest": "4.5.0",
+    "@vue/cli-plugin-vuex": "4.5.0",
+    "@vue/cli-service": "4.5.0",
+    "@vue/compiler-sfc": "3.0.0",
+    "@vue/eslint-config-prettier": "6.0.0",
+    "@vue/test-utils": "^2.0.0-0",
+    "babel-eslint": "10.1.0",
+    "eslint": "6.7.2",
+    "eslint-plugin-prettier": "3.1.3",
+    "eslint-plugin-vue": "^7.0.0-0",
+    "lint-staged": "9.5.0",
+    "node-sass": "4.13.1",
+    "prettier": "1.19.1",
+    "sass-loader": "8.0.2",
+    "typescript": "3.9.3",
+    "vue-jest": "^5.0.0-0"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,vue}": [
+      "vue-cli-service lint",
+      "git add"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/DOkwufulueze/eth-vue/issues"
+  },
+  "engines": {
+    "node": ">= 8.0.0",
+    "npm": ">= 5.0.0",
+    "yarn": ">= 1.0.0"
+  },
+  "homepage": "https://github.com/DOkwufulueze/eth-vue",
   "keywords": [
     "Ethereum",
     "Vue",
@@ -125,15 +96,5 @@
     "Truffle",
     "Web3"
   ],
-  "author": {
-    "name": "Daniel Okwufulueze",
-    "email": "daniel.okwufulueze@gmail.com",
-    "url": "http://www.danielokwufulueze.com"
-  },
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/DOkwufulueze/eth-vue/issues"
-  },
-  "homepage": "https://github.com/DOkwufulueze/eth-vue",
   "readme": "https://github.com/DOkwufulueze/eth-vue/blob/master/README.md"
 }
