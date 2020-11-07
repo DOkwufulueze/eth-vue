@@ -1,5 +1,7 @@
-var DB = artifacts.require("./DB.sol");
+"use strict";
 
-module.exports = function (deployer) {
+const DB = artifacts.require("./DB.sol");
+
+module.exports = function(deployer) {
   deployer.deploy(DB);
 };
