@@ -2,9 +2,7 @@
   <div id="profile">
     <div class="content">
       <div class="message">
-        <div>
-          Welcome to your Profile Page {{ user.firstName }}
-        </div>
+        <div>Welcome to your Profile Page {{ user.firstName }}</div>
       </div>
     </div>
   </div>
@@ -12,13 +10,13 @@
 
 <script>
 export default {
-  name: 'Profile',
-  data: function () {
+  name: "Profile",
+  data: function() {
     return {
       user: this.$store.state.user
-    }
+    };
   }
-}
+};
 </script>
 
 <style scoped>

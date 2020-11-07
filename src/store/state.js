@@ -10,18 +10,18 @@ export default {
     networkId: null
   },
   user: {
-    balance: '0.00',
-    coinbase: '',
-    email: '',
-    firstName: '',
-    gravatar: '',
+    balance: "0.00",
+    coinbase: "",
+    email: "",
+    firstName: "",
+    gravatar: "",
     hasCoinbase: false,
     hasWeb3InjectedBrowser: false,
     isConnectedToApprovedNetwork: false,
     isLoggedIn: false,
-    lastName: ''
+    lastName: ""
   },
   isDAppReady: false,
-  isValidUserBut: '0',
-  originalIsValidUserBut: '0'
-}
+  isValidUserBut: "0",
+  originalIsValidUserBut: "0"
+};
