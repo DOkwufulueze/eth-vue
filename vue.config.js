@@ -34,13 +34,24 @@ module.exports = {
     }
   },
   pwa: {
-    name: "eth-vue-icons",
+    name: "eth-vue",
     iconPaths: {
-      appleTouchIcon: "./static/images/danielokwufulueze.png",
-      favicon16: "./static/images/danielokwufulueze.png",
-      favicon32: "./static/images/danielokwufulueze.png",
+      appleTouchIcon: "static/images/apple-touch-icon.png",
+      favicon16: "static/images/favicon-16x16.png",
+      favicon32: "static/images/favicon-32x32.png",
       maskIcon: "./static/images/danielokwufulueze.png",
-      msTileImage: "./static/images/danielokwufulueze.png"
+      msTileImage: "static/images/mstile-150x150.png"
+    },
+    manifestOptions: {
+      Scope: "/",
+      start_url: "/",
+      icons: [
+        {
+          src: "static/images/favicon.ico",
+          sizes: "64x64 32x32 24x24 16x16",
+          type: "image/x-icon"
+        }
+      ]
     }
   }
 };
