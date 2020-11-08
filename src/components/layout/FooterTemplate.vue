@@ -90,7 +90,7 @@ export default {
 }
 
 .copyleft-resource {
-  background: url("/static/images/copyleft.png") no-repeat;
+  background: url("../../../static/images/copyleft.png") no-repeat;
   height: 20px;
   width: 20px;
   display: inline-block;
@@ -109,7 +109,7 @@ export default {
   display: inline-block;
   width: 20px;
   height: 20px;
-  background: url("/static/images/Facebook.png") no-repeat;
+  background: url("../../../static/images/Facebook.png") no-repeat;
   background-size: contain;
 }
 
@@ -118,7 +118,7 @@ export default {
   width: 20px;
   margin: 0px 0px 0px 30px;
   height: 20px;
-  background: url("/static/images/twitter.png") no-repeat;
+  background: url("../../../static/images/twitter.png") no-repeat;
   background-size: contain;
 }
 </style>
