@@ -1,11 +1,10 @@
-var bip39 = require("bip39");
-var hdkey = require("ethereumjs-wallet/dist/hdkey");
-var ProviderEngine = require("web3-provider-engine");
-var WalletSubprovider = require("web3-provider-engine/subproviders/wallet.js");
-var Web3Subprovider = require("web3-provider-engine/subproviders/web3.js");
-// var RPCSubprovider = require('web3-provider-engine/subproviders/rpc.js');
-var Web3 = require("web3");
+const bip39 = require("bip39");
+const hdkey = require("ethereumjs-wallet/dist/hdkey");
+const ProviderEngine = require("web3-provider-engine");
+const WalletSubprovider = require("web3-provider-engine/subproviders/wallet.js");
+const RPCSubprovider = require("web3-provider-engine/subproviders/rpc.js");
 const FilterSubprovider = require("web3-provider-engine/subproviders/filters.js");
+const Web3 = require("web3");
 
 // Get our mnemonic and create an hdwallet
 var mnemonic =
@@ -19,16 +18,19 @@ var address = "0x" + wallet.getAddress().toString("hex");
 
 var providerUrl = "https://testnet.infura.io";
 var engine = new ProviderEngine();
+
+// pass the engine to Web3 - this next line is necessary
+var web3 = new Web3(engine);
+
 // filters
 engine.addProvider(new FilterSubprovider());
 
 engine.addProvider(new WalletSubprovider(wallet, {}));
 engine.addProvider(
-  new Web3Subprovider(new Web3.providers.HttpProvider(providerUrl))
+  new RPCSubprovider({
+    rpcUrl: providerUrl
+  })
 );
-// engine.addProvider(new RPCSubprovider({
-//   rpcUrl: providerUrl,
-// }));
 engine.start(); // Required by the provider engine.
 
 module.exports = {

@@ -1,6 +1,6 @@
 "use strict";
 
-const contract = require("truffle-contract");
+const contract = require("@truffle/contract");
 const DBConfigObject = require("../build/contracts/DB.json");
 
 const Setup = artifacts.require("./Setup.sol");
