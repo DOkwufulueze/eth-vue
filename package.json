@@ -16,12 +16,14 @@
   "license": "GPL-3.0",
   "private": false,
   "scripts": {
-    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e",
+    "inspect": "vue-cli-service inspect",
     "lint": "vue-cli-service lint",
-    "lint:fix": "vue-cli-service lint --fix"
+    "lint:fix": "vue-cli-service lint --fix",
+    "serve": "vue-cli-service serve",
+    "start": "vue-cli-service serve --open",
+    "test:e2e": "vue-cli-service test:e2e",
+    "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "@truffle/contract": "4.2.29",
