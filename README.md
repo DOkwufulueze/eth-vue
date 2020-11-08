@@ -3,8 +3,8 @@
 <br><br>
 ![eth-vue](https://raw.githubusercontent.com/DOkwufulueze/eth-vue/master/box-img-lg.png)
 
-This Truffle Box provides everything you need to quickly build Ethereum dApps that have authentication features with [vue](https://github.com/vuejs/vue), including configuration for easy deployment to the Ropsten Network. It's also Gravatar-enabled. Connecting to a running [Ganache](https://github.com/trufflesuite/ganache) blockchain network from Truffle is also possible -- for fast development and testing purposes.<br>
-Built on [Truffle 4](https://github.com/trufflesuite/truffle/releases), [eth-vue](https://github.com/DOkwufulueze/eth-vue) uses [vuex](https://github.com/vuejs/vuex) for state management, [vuex-persist](https://github.com/championswimmer/vuex-persist) for local storage of app state, and [vue-router](https://github.com/vuejs/vue-router) for routing.
+This Truffle Box provides everything you need to quickly build Ethereum dApps that have authentication features with [Vue 3](https://github.com/vuejs/vue-next), including configuration for easy deployment to the Ropsten Network. It's also Gravatar-enabled. Connecting to a running [Ganache](https://github.com/trufflesuite/ganache) blockchain network from Truffle is also possible -- for fast development and testing purposes.<br>
+Built on [Truffle 5](https://github.com/trufflesuite/truffle/releases), [eth-vue](https://github.com/DOkwufulueze/eth-vue) uses [vuex](https://github.com/vuejs/vuex) for state management, [vuex-persist](https://github.com/championswimmer/vuex-persist) for local storage of app state, and [vue-router](https://github.com/vuejs/vue-router) for routing.
 Authentication functionalities are handled by Smart Contracts running on the Ethereum blockchain.
 
 With deployment configuration for the Ropsten Network, deployment to the remote test network doesn't have to be a pain anymore. It's now as simple as `truffle migrate --network ropsten`
@@ -62,9 +62,9 @@ Simply unbox and start building your own dApp.
           '4447': 'Truffle Develop Network',
           '5777': 'Ganache Blockchain',
           '666': 'Daniel Private Blockchain' // This is a test private blockchain. You can change it to your own private blockchain if you have one.
-        }
+        };
 
-        export const APPROVED_NETWORK_ID = '3'
+        export const APPROVED_NETWORK_ID = "3"; // Default is Ropsten. Set as you choose
         ...
 
     The default network above is the Ropsten network [`APPROVED_NETWORK_ID = '3'`], but you can change this, as Ropsten was chosen for testing purpose only.<br>
@@ -133,9 +133,7 @@ The default port for `truffle develop` is 9545, so it doesn't conflict with any 
         yarn start
 <br>
 
-- Open your browser and enter the following:
-
-        localhost:3001
+- The `eth-vue` DApp should now be running on http://localhost:3001 as you can see from your browser.
 
 ## And that's it, you're DONE!
 
