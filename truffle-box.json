@@ -9,6 +9,6 @@
     "Test contracts": "truffle test"
   },
   "hooks": {
-    "post-unpack": "npm install"
+    "post-unpack": "yarn install"
   }
 }

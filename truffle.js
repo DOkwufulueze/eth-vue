@@ -20,6 +20,7 @@ var providerUrl = "https://testnet.infura.io";
 var engine = new ProviderEngine();
 
 // pass the engine to Web3 - this next line is necessary
+/* eslint-disable no-unused-vars */
 var web3 = new Web3(engine);
 
 // filters
@@ -57,7 +58,7 @@ module.exports = {
       host: "localhost",
       port: 8545, // This is the conventional port. If you're using the Ganache Blockchain, change port value to the Ganache default port 7545. If you're using Truffle develop network, change port value to 9545
       network_id: "666", // Match any network id. You may need to replace * with your network Id
-      from: "0xe0732c912bf74b2f2df886a3e4a3c312852aec70", // Add your unlocked account within the double quotes
+      from: "", // Add your unlocked account within the double quotes
       gas: 4444444
     },
     ganache: {
