@@ -7,7 +7,8 @@
   "contributors": [
     "Aaron Paz <hi@aaronpaz.dev>",
     "Daniel Okwufulueze <danielokwufulueze@gmail.com>",
-    "Josh Quintal <josh@trufflesuite.com>"
+    "Josh Quintal <josh@trufflesuite.com>",
+    "Mr.bearDream <laxzhang@outlook.com>"
   ],
   "repository": {
     "type": "git",
@@ -40,7 +41,7 @@
     "vuex": "^4.0.0-0",
     "vuex-persist": "3.1.3",
     "web3-provider-engine": "16.0.1",
-    "web3": "^1.2.7"
+    "web3": "1.3.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "4.5.0",
