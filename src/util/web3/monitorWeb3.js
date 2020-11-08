@@ -13,7 +13,8 @@ const monitorWeb3 = function(state) {
   // Checking if browser is Web3-injected (Mist/MetaMask)
   if (typeof web3 !== "undefined" && web3) {
     // Use Mist/MetaMask's provider
-    web3 = new Web3(web3.currentProvider);
+    web3 = new Web3(window.ethereum);
+    window.ethereum.enable();
   } else {
     console.log("monitorWeb3: No web3 in browser");
     web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
@@ -24,7 +25,7 @@ const monitorWeb3 = function(state) {
     /* eslint-disable no-unused-vars */
     web3.eth.subscribe("newBlockHeaders", function(error, result) {
       if (!error) {
-        // console.log(result)
+        // console.log(result);
       }
     });
   }
