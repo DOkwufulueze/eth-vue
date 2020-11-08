@@ -4,7 +4,7 @@ module.exports = {
     hotOnly: true,
 
     // open default browser
-    open: true,
+    open: false,
 
     // server port
     port: 3001
