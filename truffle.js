@@ -37,7 +37,7 @@ engine.start(); // Required by the provider engine.
 module.exports = {
   compilers: {
     solc: {
-      version: "0.5.8",
+      version: "0.7.4",
       settings: {
         optimizer: {
           enabled: true,
