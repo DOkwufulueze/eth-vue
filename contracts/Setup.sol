@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.8.0;
 
 import "./DB.sol";
 
@@ -8,7 +9,7 @@ import "./DB.sol";
 contract Setup is Destructible {
   address public dbAddress;
 
-  constructor (address _dbAddress) public {
+  constructor (address _dbAddress) {
     require(_dbAddress != address(0x0));
     dbAddress = _dbAddress;
   }

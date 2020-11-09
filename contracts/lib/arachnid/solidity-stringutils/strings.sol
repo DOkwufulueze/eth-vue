@@ -34,7 +34,8 @@
  *      corresponding to the left and right parts of the string.
  */
 
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.8.0;
 
 library strings {
     struct slice {
@@ -42,9 +43,9 @@ library strings {
         uint _ptr;
     }
 
-    function memcpy(uint dest, uint src, uint len) private pure {
+    function memcpy(uint dest, uint src, uint wordlen) private pure {
         // Copy word-length chunks while possible
-        for(; len >= 32; len -= 32) {
+        for(; wordlen >= 32; wordlen -= 32) {
             assembly {
                 mstore(dest, mload(src))
             }
@@ -53,7 +54,7 @@ library strings {
         }
 
         // Copy remaining bytes
-        uint mask = 256 ** (32 - len) - 1;
+        uint mask = 256 ** (32 - wordlen) - 1;
         assembly {
             let srcpart := and(mload(src), not(mask))
             let destpart := and(mload(dest), mask)

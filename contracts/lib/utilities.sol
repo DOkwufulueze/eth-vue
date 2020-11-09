@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.8.0;
 
 import "../DB.sol";
 
@@ -27,4 +28,3 @@ library utilities {
     DB(dbAddress).setUIntValue(keccak256(abi.encodePacked(countKey)), idx + 1);
   }
 }
-

@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.8.0;
 
 import './zeppelin/lifecycle/Destructible.sol';
 import "./zeppelin/math/SafeMath.sol";
@@ -25,7 +26,7 @@ contract DB is Destructible {
     _;
   }
 
-  constructor () public { }
+  constructor () { }
 
   // AddressDataStore
   function getAddressValue (bytes32 recordFieldName) public view returns (address) {
@@ -229,7 +230,7 @@ contract DB is Destructible {
     external view returns
   (
     uint[] memory items,
-    string memory strings
+    string memory stringItem
   )
   {
     uint countOfIntegerTypes = getCountOfIntegerTypes(recordFieldTypes);
@@ -257,17 +258,17 @@ contract DB is Destructible {
       for (uint j = 0; j < recordFieldTypes.length; j++) {
         uint r_i = (i * recordFieldTypes.length) + j;
         if (recordFieldTypes[j] == 7) {
-          strings = strings.toSlice().concat(getStringValue(recordFieldNames[r_i]).toSlice());
-          strings = strings.toSlice().concat("666--ETH-VUE--666".toSlice());
+          stringItem = stringItem.toSlice().concat(getStringValue(recordFieldNames[r_i]).toSlice());
+          stringItem = stringItem.toSlice().concat("666--ETH-VUE--666".toSlice());
         } else {
           items[k] = getCorrespondingIntegerValue(recordFieldNames[r_i], recordFieldTypes[j]);
           k++;
         }
       }
-      strings = strings.toSlice().concat("666--ETH-VUE-LIST--666".toSlice());
+      stringItem = stringItem.toSlice().concat("666--ETH-VUE-LIST--666".toSlice());
     }
 
-    return (items, strings);
+    return (items, stringItem);
   }
 
   function getCountOfIntegerTypes (uint8[] memory recordFieldTypes) public pure returns (uint count) {

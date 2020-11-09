@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.8.0;
 
 import "./utilities.sol";
 
@@ -57,7 +58,7 @@ library userManager {
     internal
   {
     if (!isUserExists(dbAddress, userId)) {
-      DB(dbAddress).setUIntValue(keccak256(abi.encodePacked("user/created-on", userId)), now);
+      DB(dbAddress).setUIntValue(keccak256(abi.encodePacked("user/created-on", userId)), block.timestamp);
       DB(dbAddress).setUInt8Value(keccak256(abi.encodePacked("user/status", userId)), 1);
       utilities.addArrayItem(dbAddress, "users/ids", "users/count", userId);
     }
