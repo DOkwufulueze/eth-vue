@@ -132,7 +132,7 @@ export default {
             });
         })
         .catch(error => {
-          if (payload.callback) payload.callback();
+          if (payload.callback) payload.callback(false);
           console.error("App:::Unable to write user data: " + error);
         });
     },

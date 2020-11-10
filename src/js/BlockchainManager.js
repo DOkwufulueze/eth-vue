@@ -90,6 +90,19 @@ class BlockchainManager {
       });
   }
 
+  /**
+   *
+   * @param {*} query the payload to use in identifying and
+   * querying the smartcontract ABI. This payload contains
+   *   - the eth-vue state object
+   *   - the contract we're sending the message to
+   *   - db contract key
+   *   - the method callback
+   *   - the smart contract method to call
+   *   - the smart contract method parameters
+   *   - the callback for Promise resolution
+   *   - the callback for Promise rejection
+   */
   querySmartContract(query) {
     return new Promise((resolve, reject) => {
       blockchainManager

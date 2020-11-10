@@ -135,7 +135,10 @@ export default {
           firstName: `b${this.user.firstName || ""}`,
           lastName: `b${this.user.lastName || ""}`,
           email: `b${this.user.email || ""}`,
-          gravatar: `b${this.user.gravatar || ""}`
+          gravatar: `${getHexFromString(
+            this.$store.state,
+            this.user.gravatar || ""
+          )}`
         };
 
         const vueUserObject = Object.assign({}, userObject, {
@@ -151,11 +154,13 @@ export default {
           contractIndexToUse: "UserAuthManager",
           methodName: "setUser",
           managerIndex: "UserManager",
-          callback: () => {
+          callback: isSuccess => {
             evt.target.disabled = false;
-            console.log(
+            alert(
               action === "signup"
-                ? "Signed up and logged In"
+                ? isSuccess
+                  ? "Signed up and logged In"
+                  : "Unable to sign up at this time"
                 : "Successfully updated profile"
             );
             if (this.user.email === "" || !this.user.isLoggedIn) {
@@ -193,6 +198,7 @@ export default {
 
 import { mapActions } from "vuex";
 import { ACTION_TYPES } from "../../util/constants";
+import { getHexFromString } from "../../js/utilities";
 </script>
 
 <style scoped>

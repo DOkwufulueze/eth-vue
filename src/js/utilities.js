@@ -46,9 +46,10 @@ export function getObjectFromResponse(
         intValuesIndex += 1;
       } else if (fieldTypes[index] === 4) {
         itemValue = entitiesIntsArrays[i]
-          ? state.web3
-              .instance()
-              .toHex(entitiesIntsArrays[i][intValuesIndex].toString())
+          ? getHexFromString(
+              state,
+              entitiesIntsArrays[i][intValuesIndex].toString()
+            )
           : "0x0";
         intValuesIndex += 1;
       } else if (fieldTypes[index] === 5) {
@@ -56,9 +57,10 @@ export function getObjectFromResponse(
           ? state.web3
               .instance()
               .toUtf8(
-                state.web3
-                  .instance()
-                  .toHex(entitiesIntsArrays[i][intValuesIndex].toString())
+                getHexFromString(
+                  state,
+                  entitiesIntsArrays[i][intValuesIndex].toString()
+                )
               )
               .slice(1)
           : "";
@@ -81,14 +83,11 @@ export function getObjectFromResponse(
 }
 
 export function getSlicedAddressString(state, addressString) {
-  return state.web3
-    .instance()
-    .toHex(addressString)
-    .slice(2);
+  return getHexFromString(state, addressString).slice(2);
 }
 
 export function getLeftPaddedNumber(state, numberValue, dataTypeIndex = 1) {
-  const hexNumber = state.web3.instance().toHex(numberValue);
+  const hexNumber = getHexFromString(state, numberValue);
   const rightNumber = getSlicedAddressString(state, hexNumber);
   const paddings = [2, 64]; // 2 => uint8, 64 => uint256
   const numberOfDigits = rightNumber.toString().length;
@@ -104,9 +103,7 @@ export function getLeftPaddedNumber(state, numberValue, dataTypeIndex = 1) {
 }
 
 export function getSoliditySha3ForId(state, key, ...otherParams) {
-  return soliditySha3(
-    `${state.web3.instance().toHex(key)}${otherParams.join("")}`
-  );
+  return soliditySha3(`${getHexFromString(state, key)}${otherParams.join("")}`);
 }
 
 export function getHash(stringValue = "") {
@@ -156,4 +153,18 @@ export function getGravatarFromCoinbase(payload = {}, resolve, reject) {
     spotcolor: identiconColor.spotColor
   });
   resolve(avatarCanvas);
+}
+
+export function getHexFromString(state, str) {
+  const web3Instance = state.web3.instance;
+  if (web3Instance && web3Instance() && web3Instance().toHex)
+    return web3Instance().toHex(str);
+  else if (
+    window &&
+    window.web3 &&
+    window.web3.utils &&
+    window.web3.utils.toHex
+  )
+    return window.web3.utils.toHex(str);
+  else return "0x0";
 }

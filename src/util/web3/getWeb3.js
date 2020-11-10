@@ -6,18 +6,25 @@ let getWeb3 = new Promise(function(resolve, reject) {
   // Wait for loading completion to avoid race conditions with web3 injection timing.
   window.addEventListener("load", function() {
     if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
-      window.ethereum.enable();
-      window.web3.eth.net
-        .isListening()
-        .then(isListening => {
-          resolve({
-            hasInjectedWeb3: isListening,
-            web3: window.web3
-          });
+      window.ethereum
+        .enable()
+        .then(() => {
+          console.log("Successfully enabled Window Ethereum.");
+          window.web3 = new Web3(window.ethereum);
+          window.web3.eth.net
+            .isListening()
+            .then(isListening => {
+              resolve({
+                hasInjectedWeb3: isListening,
+                web3: window.web3
+              });
+            })
+            .catch(error => {
+              console.error("Unable to check if connected: " + error);
+            });
         })
         .catch(error => {
-          console.error("Unable to check if connected: " + error);
+          console.error("Unable to enable Window Ethereum: " + error);
         });
     } else {
       /* eslint-disable-next-line */
