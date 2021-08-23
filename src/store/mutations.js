@@ -56,7 +56,7 @@ function getUserBalance(state, userCopy) {
   return new Promise(function(resolve, reject) {
     state.web3.instance().eth.getBalance(state.user.coinbase, (err, res) => {
       if (!err) {
-        resolve(state.web3.instance().fromWei(res.toNumber()));
+        resolve(state.web3.instance().utils.fromWei(res, 'ether'));
       } else {
         console.error(err);
       }
