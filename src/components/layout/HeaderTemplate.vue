@@ -188,6 +188,8 @@ export default {
   .divider {
     color: #4c4e49;
     display: inline-block;
+    margin: 0 20px;
+    font-size: 10px;
   }
 
   .divider:before {
