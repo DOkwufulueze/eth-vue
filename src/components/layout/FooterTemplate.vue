@@ -77,6 +77,8 @@ export default {
 
 .divider {
   color: inherit;
+  margin: 0 20px;
+  font-size: 10px;
 }
 
 .divider:before {
